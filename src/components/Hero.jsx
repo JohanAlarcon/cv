@@ -4,10 +4,11 @@ import PrintIcon from '@mui/icons-material/Print';
 
 export default function Hero() {
   const theme = useTheme();
+  const pdfUrl = `${process.env.PUBLIC_URL}/Hoja_de_Vida_Johan_Dario_Alarcon.pdf`;
 
    const handleDownload = async () => {
     try {
-      const resp = await fetch('/Hoja_de_Vida_Johan_Dario_Alarcon.pdf');
+      const resp = await fetch(pdfUrl);
       const blob = await resp.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -46,7 +47,7 @@ export default function Hero() {
           }}
         >
           <Avatar
-            src="/perfil.jpg"
+            src={`${process.env.PUBLIC_URL}/perfil.jpg`}
             alt="Johan Alarcón"
             sx={{
               width: { xs: 80, sm: 100, md: 128 },
