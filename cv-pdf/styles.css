@@ -1,0 +1,142 @@
+/* styles.css */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Fondo general */
+  color: #34495e; /* Texto principal */
+}
+
+.cv-container {
+  max-width: 1000px;
+  margin: 10px auto;
+  background: #ffffff; /* Fondo del contenedor */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: #2c3e50; /* Azul oscuro */
+  color: #ffffff; /* Texto blanco */
+  padding: 20px;
+}
+
+.photo img {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 3px solid #ffffff; /* Borde blanco */
+}
+
+.info {
+  margin-left: 20px;
+}
+
+.info h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.info h2 {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.info a {
+  color: #ffffff; /* Enlaces en blanco */
+  text-decoration: none;
+}
+
+.links {
+  padding: 10px 20px;
+  background: #ecf0f1; /* Gris claro */
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #2980b9; /* Azul suave */
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.links a i {
+  margin-right: 5px;
+}
+
+.content {
+  display: flex;
+  padding: 20px;
+}
+
+.column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.column.left {
+  max-width: 300px;
+}
+
+.column.right {
+  flex: 2;
+}
+
+h3 {
+  color: #2980b9; /* Azul suave */
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+ul li i {
+  color: #2980b9; /* Azul suave */
+  margin-right: 8px;
+}
+
+.job h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #34495e; /* Gris oscuro */
+}
+
+.job p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #7f8c8d; /* Gris medio */
+}
+
+.job ul {
+  margin-top: 10px;
+}
+
+.job ul li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.trophy-icon {
+  color: #f1c40f; /* Dorado suave */
+}
