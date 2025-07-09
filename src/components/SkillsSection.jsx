@@ -39,7 +39,7 @@ export default function SkillsSection() {
       <Paper
         elevation={3}
         sx={{
-          p: { xs: 2, sm: 3 },
+          p: { xs: 4, sm: 3 },
           borderLeft: `4px solid ${theme.palette.accent.main}`,
           backgroundColor: 'background.paper',
           borderRadius: 2

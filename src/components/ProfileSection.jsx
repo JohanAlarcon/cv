@@ -1,6 +1,5 @@
 // src/components/ProfileSection.jsx
 import { Box, Paper, Typography } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
 

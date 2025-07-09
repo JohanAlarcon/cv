@@ -1,5 +1,4 @@
-
-import { Container, Grid, Box } from '@mui/material';
+import { Container, Grid, Box, GlobalStyles } from '@mui/material';
 import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import ContactInfo from './components/ContactInfo';
@@ -43,51 +42,75 @@ const animations = {
 
 export default function App() {
   return (
-    <Box
-      component="main"
-      sx={{
-        minHeight: '100vh',
-        background: 'linear-gradient(180deg, #eef2f3 0%, #ffffff 100%)',
-      }}
-    >
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        {/* Hero */}
-        <motion.div {...animations.hero}>
-          <Hero />
-        </motion.div>
-
-        {/* Contact */}
-        <motion.div {...animations.contact}>
-          <ContactInfo />
-        </motion.div>
-
-        <Grid container spacing={4} mt={2}>
-          {/* Skills */}
-          <Grid item xs={12} md={4}>
-            <motion.div {...animations.skills}>
-              <SkillsSection />
+    <>
+      <GlobalStyles
+        styles={{
+          'html, body, #root': {
+            height: '100%',
+            margin: 0,
+            padding: 0,
+          },
+        }}
+      />
+      <Box
+        component="main"
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundBlendMode: 'overlay',
+          position: 'relative',
+          '&::before': {
+            //position: 'relative',
+            position: 'absolute',
+            content: '""',
+            inset: 0,
+            backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpg)`,
+            backgroundSize: 'cover, auto',
+            backgroundPosition: 'center',
+            opacity: 0.2,          // ajusta opacidad al gusto (0.0–1.0)
+            zIndex: 0,
+          }
+        }}
+      >
+        {/* Contenedor principal con zIndex superior */}
+        <Box sx={{ position: 'relative', zIndex: 1 }}>
+          <Container maxWidth="lg" sx={{ py: 4 }}>
+            {/* Hero */}
+            <motion.div {...animations.hero}>
+              <Hero />
             </motion.div>
-          </Grid>
-
-          {/* Profile, Experience & Achievements */}
-          <Grid item xs={12} md={8} container direction="column">
-            <Grid item>
-              <motion.div {...animations.profile}>
-                <ProfileSection />
-              </motion.div>
+            {/* Contact */}
+            <motion.div {...animations.contact}>
+              <ContactInfo />
+            </motion.div>
+            <Grid container spacing={4} mt={2}>
+              {/* Skills */}
+              <Grid item xs={12} md={4}>
+                <motion.div {...animations.skills}>
+                  <SkillsSection />
+                </motion.div>
+              </Grid>
+              {/* Profile, Experience & Achievements */}
+              <Grid item xs={12} md={8} container direction="column">
+                <Grid item>
+                  <motion.div {...animations.profile}>
+                    <ProfileSection />
+                  </motion.div>
+                </Grid>
+                <Grid item>
+                  <motion.div {...animations.experience}>
+                    <ExperienceTimeline />
+                  </motion.div>
+                  <motion.div {...animations.achievements}>
+                    <AchievementsSection />
+                  </motion.div>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item>
-              <motion.div {...animations.experience}>
-                <ExperienceTimeline />
-              </motion.div>
-              <motion.div {...animations.achievements}>
-                <AchievementsSection />
-              </motion.div>
-            </Grid>
-
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+          </Container>
+        </Box>
+      </Box>
+    </>
   );
 }

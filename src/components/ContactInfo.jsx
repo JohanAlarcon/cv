@@ -16,7 +16,7 @@ import {
   Email,
   LinkedIn,
   GitHub,
-  FileDownload
+  Facebook
 } from '@mui/icons-material';
 
 export default function ContactInfo() {
@@ -31,7 +31,7 @@ export default function ContactInfo() {
   const socials = [
     { Icon: LinkedIn,     title: 'LinkedIn',    href: 'https://linkedin.com/in/johan-alarcon-2864812b7/' },
     { Icon: GitHub,       title: 'GitHub',      href: 'https://github.com/JohanAlarcon' },
-    { Icon: FileDownload, title: 'Descargar CV', href: '#' },
+    { Icon: Facebook,     title: 'Facebook',    href: 'https://www.facebook.com/alarconjohan' },
   ];
 
   return (
@@ -118,13 +118,7 @@ export default function ContactInfo() {
 
             {/* Iconos sociales / CV */}
             {socials.map(({ Icon, title, href }, idx) => (
-              <Grid 
-                item 
-                key={idx} 
-                xs={4} 
-                sm={2} 
-                md={2}
-              >
+              <Grid  item  key={idx}  xs={4}  sm={2}  md={2}>
                 <Box 
                   display="flex" 
                   justifyContent="center"

@@ -45,7 +45,9 @@ export default function ExperienceTimeline() {
             title: 'Ingeniería de Sistemas',
             company: 'Univ. Cooperativa de Colombia',
             icon: <School />,
-            details: []
+            details: [
+                'Desarrollo de software,Bases de datos'
+            ]
         },
     ];
 
@@ -79,7 +81,7 @@ export default function ExperienceTimeline() {
             <Timeline
                 position={timelinePosition}
                 sx={{
-                    px: { xs: 0, md: 2 },
+                    px: { xs: 2, md: 2 },
                     '& .MuiTimelineItem-root': { minHeight: { xs: 80, md: 120 } }
                 }}
             >
@@ -88,7 +90,7 @@ export default function ExperienceTimeline() {
                         {/* Fecha en pantallas grandes */}
                         {!isSmall && (
                             <TimelineOppositeContent sx={{ m: 'auto 0' }}>
-                                <Typography variant="caption" color="text.secondary">
+                                <Typography variant="caption" color="text.dark">
                                     {item.date}
                                 </Typography>
                             </TimelineOppositeContent>
@@ -118,7 +120,7 @@ export default function ExperienceTimeline() {
                                 <Paper
                                     elevation={3}
                                     sx={{
-                                        p: { xs: 2, md: 3 },
+                                        p: { xs: 4, md: 3 },
                                         backgroundColor: 'background.paper',
                                         borderLeft: `4px solid ${theme.palette.accent.main}`,
                                         borderRadius: 2
