@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "https://johanalarcon.github.io/cv/static/js/main.845f4e81.js",
+    "main.js": "https://johanalarcon.github.io/cv/static/js/main.6687173d.js",
     "index.html": "https://johanalarcon.github.io/cv/index.html",
-    "main.845f4e81.js.map": "https://johanalarcon.github.io/cv/static/js/main.845f4e81.js.map"
+    "main.6687173d.js.map": "https://johanalarcon.github.io/cv/static/js/main.6687173d.js.map"
   },
   "entrypoints": [
-    "static/js/main.845f4e81.js"
+    "static/js/main.6687173d.js"
   ]
 }
