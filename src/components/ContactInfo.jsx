@@ -101,14 +101,14 @@ export default function ContactInfo() {
                   {href ? (
                     <Link 
                       href={href}
-                      variant="body2"
+                      variant="body1"
                       underline="hover"
                       sx={{ wordBreak: 'break-all' }}
                     >
                       {label}
                     </Link>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body1">
                       {label}
                     </Typography>
                   )}

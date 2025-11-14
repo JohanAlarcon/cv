@@ -19,25 +19,27 @@ export default function ExperienceTimeline() {
 
     const items = [
         {
-            date: '2024–Presente',
+            date: '2024–2025',
             title: 'Desarrollador de Software',
             company: 'Alcaldía de Ibagué',
             icon: <BusinessCenter />,
             details: [
-                'Módulos Laravel + MySQL',
-                'Documentación TIC',
-                'Capacitación y soporte',
-                '+30 % eficiencia'
+                'Desarrollo de módulos para la Plataforma Integrada de Sistemas utilizando Laravel y MySQL.',
+                'Documentación de procesos siguiendo estándares definidos por la Secretaría de las TIC.',
+                'Capacitación a usuarios finales y soporte técnico.',
+                'Optimización de procesos internos y desarrollo de la plataforma Descubre Ibague.'
             ]
         },
         {
-            date: 'Abr 2019–Presente',
+            date: 'Abr 2019–2025',
             title: 'Desarrollador de Software',
             company: 'SIANDSI',
             icon: <BusinessCenter />,
             details: [
-                'Apps web con PHP, Laravel, JS, MySQL',
-                'Automatización: –25 % tiempos'
+                'Apps web con PHP, Laravel, React, MySQL',
+                'Creacion de sitios web con NextJS y MySQL',
+                'Mantenimiento de aplicaciones existentes y soporte a clientes',
+                'Participación en proyectos de software a medida para clientes de diferentes sectores.'
             ]
         },
         {

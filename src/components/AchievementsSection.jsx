@@ -1,4 +1,3 @@
-// src/components/AchievementsSection.jsx
 import { Box, Typography, Grid, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -8,8 +7,8 @@ export default function AchievementsSection() {
     const theme = useTheme();
 
     const achievements = [
-        'Sistema de gestión de datos Alcaldía: –30 % tiempo de procesamiento',
-        'Empleado del Mes en SIANDSI por entregas anticipadas'
+        "Implementación exitosa de una plataforma 'Descubre Ibague' para la Alcaldía de Ibagué, mostrando el potencial turístico de la ciudad.",
+        'Reconocido como "Empleado del Mes" en SIANDSI por la entrega de proyectos antes del plazo establecido.'
     ];
 
     return (
@@ -41,7 +40,7 @@ export default function AchievementsSection() {
             {/* Grid responsive de tarjetas */}
             <Grid container spacing={2}>
                 {achievements.map((text, idx) => (
-                    <Grid item xs={12} sm={6} key={idx}>
+                    <Grid item xs={12} md={6} key={idx}>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
