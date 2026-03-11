@@ -149,7 +149,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               variant="outlined"
               size="large"
-              href="mailto:johandarioalarcon@gmail.com"
+              onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
               sx={{
                 borderColor: 'rgba(255,255,255,0.5)',
                 color: '#fff',

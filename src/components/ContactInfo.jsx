@@ -35,7 +35,7 @@ export default function ContactInfo() {
   ];
 
   return (
-    <Box component="section" sx={{ mb: 4 }}>
+    <Box id="contacto" component="section" sx={{ mb: 4 }}>
       {/* Título de sección */}
       <Typography
         variant="h2"
