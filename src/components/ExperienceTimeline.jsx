@@ -54,27 +54,15 @@ export default function ExperienceTimeline() {
     ];
 
     return (
-        <Box component="section">
+        <Box component="section" sx={{ mb: 6 }}>
 
             <Typography
-                variant="h3"
+                variant="h2"
                 color="primary"
                 gutterBottom
                 sx={{
-                    position: 'relative',
-                    fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
-                    fontWeight: 600,
-                    mb: 2,
-                    '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        bottom: -4,
-                        left: 0,
-                        width: 40,
-                        height: 4,
-                        bgcolor: 'accent.light',
-                        borderRadius: 2
-                    }
+                    mb: 4,
+                    display: 'inline-block',
                 }}
             >
                 Experiencia Laboral
@@ -83,7 +71,7 @@ export default function ExperienceTimeline() {
             <Timeline
                 position={timelinePosition}
                 sx={{
-                    px: { xs: 2, md: 2 },
+                    px: { xs: 0, md: 2 },
                     '& .MuiTimelineItem-root': { minHeight: { xs: 80, md: 120 } }
                 }}
             >
@@ -92,7 +80,7 @@ export default function ExperienceTimeline() {
                         {/* Fecha en pantallas grandes */}
                         {!isSmall && (
                             <TimelineOppositeContent sx={{ m: 'auto 0' }}>
-                                <Typography variant="caption" color="text.dark">
+                                <Typography variant="caption" color="text.secondary" fontWeight={500}>
                                     {item.date}
                                 </Typography>
                             </TimelineOppositeContent>
@@ -100,45 +88,56 @@ export default function ExperienceTimeline() {
 
                         <TimelineSeparator>
                             <TimelineDot
-                                color="secondary"
                                 sx={{
-                                    p: 1.3,
-                                    border: `2px solid ${theme.palette.primary.main}`
+                                    p: 1.5,
+                                    bgcolor: 'primary.50',
+                                    color: 'primary.main',
+                                    border: `2px solid ${theme.palette.primary.main}`,
+                                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
                                 }}
                             >
                                 {item.icon}
                             </TimelineDot>
                             {idx < items.length - 1 && (
-                                <TimelineConnector sx={{ bgcolor: 'primary.main', width: 2 }} />
+                                <TimelineConnector sx={{ bgcolor: 'divider', width: 2 }} />
                             )}
                         </TimelineSeparator>
 
-                        <TimelineContent sx={{ py: { xs: 1, md: '12px' }, px: 2 }}>
+                        <TimelineContent sx={{ py: { xs: 2, md: '24px' }, px: { xs: 2, md: 3 } }}>
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: idx * 0.2 }}
                             >
                                 <Paper
-                                    elevation={3}
                                     sx={{
-                                        p: { xs: 4, md: 3 },
-                                        backgroundColor: 'background.paper',
-                                        borderLeft: `4px solid ${theme.palette.accent.main}`,
-                                        borderRadius: 2
+                                        p: { xs: 3, md: 4 },
+                                        position: 'relative',
+                                        '&::before': {
+                                          content: '""',
+                                          position: 'absolute',
+                                          left: 0,
+                                          top: 0,
+                                          bottom: 0,
+                                          width: '4px',
+                                          bgcolor: 'primary.main',
+                                          borderRadius: '16px 0 0 16px',
+                                        }
                                     }}
                                 >
                                     {/* Fecha en pantallas pequeñas */}
                                     {isSmall && (
-                                        <Typography variant="caption" color="text.secondary" gutterBottom>
+                                        <Typography variant="caption" color="primary.main" fontWeight={600} gutterBottom display="block">
                                             {item.date}
                                         </Typography>
                                     )}
 
                                     <Typography
-                                        variant="h4"
+                                        variant="h3"
                                         sx={{
-                                            fontSize: { xs: '1rem', md: '1.25rem' },
+                                            mb: 0.5,
+                                            fontSize: { xs: '1.1rem', md: '1.3rem' },
                                             fontWeight: 600
                                         }}
                                     >
@@ -148,7 +147,7 @@ export default function ExperienceTimeline() {
                                     <Typography
                                         variant="subtitle2"
                                         color="text.secondary"
-                                        gutterBottom
+                                        sx={{ mb: 2, fontSize: '0.95rem' }}
                                     >
                                         {item.company}
                                     </Typography>
@@ -156,13 +155,13 @@ export default function ExperienceTimeline() {
                                     {item.details.length > 0 && (
                                         <List dense sx={{ p: 0}}>
                                             {item.details.map((detail, j) => (
-                                                <ListItem key={j} sx={{ px: 0 }}>
-                                                    <ListItemIcon sx={{ minWidth: 32, color: 'secondary.main' }}>
-                                                        <CheckCircle fontSize="small" />
+                                                <ListItem key={j} sx={{ px: 0, alignItems: 'flex-start' }}>
+                                                    <ListItemIcon sx={{ minWidth: 28, mt: 0.5 }}>
+                                                        <CheckCircle sx={{ fontSize: 18, color: 'accent.main' }} />
                                                     </ListItemIcon>
                                                     <ListItemText
                                                         primary={
-                                                            <Typography variant="body2" sx={{ lineHeight: 1.4 }}>
+                                                            <Typography variant="body2" color="text.primary">
                                                                 {detail}
                                                             </Typography>
                                                         }

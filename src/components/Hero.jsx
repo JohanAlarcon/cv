@@ -1,6 +1,7 @@
-import { Box, Avatar, Typography, Container, Button, useTheme } from '@mui/material';
+import { Box, Avatar, Typography, Container, Button, useTheme, Stack, Chip } from '@mui/material';
 import { motion } from 'framer-motion';
 import PrintIcon from '@mui/icons-material/Print';
+import CodeIcon from '@mui/icons-material/Code';
 
 export default function Hero() {
   const theme = useTheme();
@@ -24,91 +25,143 @@ export default function Hero() {
   };
   return (
     <Box
-      component="section"
+      component={motion.section}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
       sx={{
-        // ==== Fondo con degradado y clip-path para forma inclinada ====
-        background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+        position: 'relative',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        background: `radial-gradient(circle at top right, ${theme.palette.primary.light}20 0%, transparent 40%),
+                     radial-gradient(circle at bottom left, ${theme.palette.accent.main}20 0%, transparent 40%),
+                     linear-gradient(to bottom right, ${theme.palette.primary.dark}, #111827)`,
         color: '#fff',
-        clipPath: {
-          xs: 'none',
-          md: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-        },
       }}
     >
-      <Container maxWidth="md">
+      {/* Decorative backdrop elements */}
+      <Box sx={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: `${theme.palette.primary.main}40`, filter: 'blur(80px)', zIndex: 0 }} />
+      <Box sx={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '250px', height: '250px', borderRadius: '50%', background: `${theme.palette.accent.main}30`, filter: 'blur(60px)', zIndex: 0 }} />
+
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
         <Box
-          component={motion.div}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           sx={{
             textAlign: 'center',
-            py: { xs: 6, sm: 8, md: 10 },
+            py: { xs: 8, md: 12 },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          <Avatar
-            src={`${process.env.PUBLIC_URL}/perfil.jpg`}
-            alt="Johan Alarcón"
-            sx={{
-              width: { xs: 80, sm: 100, md: 128 },
-              height: { xs: 80, sm: 100, md: 128 },
-              mx: 'auto',
-              mb: { xs: 2, sm: 3 },
-              border: `4px solid #fff`,
-              boxShadow: 3,
-            }}
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
+          >
+            <Avatar
+              src={`${process.env.PUBLIC_URL}/perfil.jpg`}
+              alt="Johan Alarcón"
+              sx={{
+                width: { xs: 120, md: 160 },
+                height: { xs: 120, md: 160 },
+                mx: 'auto',
+                mb: 4,
+                border: `4px solid rgba(255, 255, 255, 0.2)`,
+                backgroundClip: 'padding-box',
+                boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.5)',
+              }}
+            />
+          </motion.div>
+
+          <Chip 
+            icon={<CodeIcon fontSize="small" />} 
+            label="Open to work" 
+            color="success" 
+            size="small" 
+            sx={{ mb: 3, fontWeight: 600, bgcolor: 'rgba(16, 185, 129, 0.2)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.5)' }} 
           />
 
           <Typography
             variant="h1"
             component={motion.h1}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             sx={{
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-              fontWeight: 700,
-              mb: { xs: 1, sm: 2 },
-              lineHeight: 1.2,
+              color: '#fff',
+              mb: 2,
+              px: 2,
             }}
           >
-            Johan Darío Alarcón Ayala
+            Johan Darío Alarcón
           </Typography>
 
           <Typography
             variant="h4"
-            component={motion.h4}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            component={motion.p}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
             sx={{
-              fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
-              fontWeight: 500,
-              opacity: 0.9,
-              mb: { xs: 3, sm: 4 },
+              color: 'text.secondary',
+              mb: 5,
+              fontWeight: 400,
+              maxWidth: '600px',
+              color: 'rgba(255,255,255,0.7)'
             }}
           >
-            Ingeniero de Sistemas
+             Software Engineer especializado en ecosistemas web modernos (PHP/Laravel & React). Construyendo soluciones de alto rendimiento.
           </Typography>
 
-          <Button
-            component={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variant="contained"
-            color="secondary"
-            size="large"
-            startIcon={<PrintIcon />}
-            onClick={handleDownload}
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-              textTransform: 'none',
-            }}            
+          <Stack 
+            direction={{ xs: 'column', sm: 'row' }} 
+            spacing={3}
+            component={motion.div}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
-            Descargar CV
-          </Button>
+            <Button
+              component={motion.button}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              variant="contained"
+              size="large"
+              sx={{
+                bgcolor: 'accent.main',
+                color: '#fff',
+                px: 4,
+                py: 1.5,
+                fontSize: '1rem',
+                '&:hover': { bgcolor: 'accent.dark' },
+              }}
+              startIcon={<PrintIcon />}
+              onClick={handleDownload}
+            >
+              Descargar CV
+            </Button>
+            
+            <Button
+              component={motion.button}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              variant="outlined"
+              size="large"
+              href="mailto:johandarioalarcon@gmail.com"
+              sx={{
+                borderColor: 'rgba(255,255,255,0.5)',
+                color: '#fff',
+                px: 4,
+                py: 1.5,
+                fontSize: '1rem',
+                borderWidth: 2,
+                '&:hover': { borderColor: '#fff', borderWidth: 2, bgcolor: 'rgba(255,255,255,0.05)' },
+              }}
+            >
+              Contactar
+            </Button>
+          </Stack>
         </Box>
       </Container>
     </Box>

@@ -41,36 +41,20 @@ export default function SkillsSection() {
   return (
     <Box component="section">
       <Typography
-        variant="h3"
+        variant="h2"
         color="primary"
         gutterBottom
         sx={{
-          position: 'relative',
-          fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
-          fontWeight: 600,
-          mb: 2,
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: -4,
-            left: 0,
-            width: 40,
-            height: 4,
-            bgcolor: 'accent.light',
-            borderRadius: 2,
-          },
+          mb: 4,
+          display: 'inline-block',
         }}
       >
         Competencias técnicas
       </Typography>
 
       <Paper
-        elevation={3}
         sx={{
-          p: { xs: 4, sm: 3 },
-          borderLeft: `4px solid ${theme.palette.accent.main}`,
-          backgroundColor: 'background.paper',
-          borderRadius: 2,
+          p: { xs: 3, sm: 4 },
         }}
       >
         {/* ===== Grid responsive de Chips ===== */}
@@ -79,13 +63,14 @@ export default function SkillsSection() {
           sx={{
             display: 'grid',
             gridTemplateColumns: {
-              xs: 'repeat(2, 1fr)',   // 2 columnas en móviles
-              sm: 'repeat(6, 1fr)',   // 6 en tablets
-              md: 'repeat(10, 1fr)',  // 10 en desktop (una por skill)
+              xs: 'repeat(2, 1fr)',   
+              sm: 'repeat(3, 1fr)',   
+              md: 'repeat(4, 1fr)',
+              lg: 'repeat(6, 1fr)',
             },
-            gap: 1.5,
+            gap: 2,
             listStyle: 'none',
-            p: 2,
+            p: 0,
             m: 0,
           }}
         >
@@ -96,32 +81,31 @@ export default function SkillsSection() {
               <Box component="li" key={skill} sx={{ textAlign: 'center' }}>
                 <Chip
                   label={skill}
-                  color="secondary"
-                  size="medium"
+                  variant="outlined"
                   avatar={
                     IconComponent ? (
-                      <Avatar
-                        sx={{
-                          bgcolor: 'transparent',
-                          color: 'inherit',
-                        }}
-                      >
+                      <Avatar sx={{ bgcolor: 'transparent', color: 'inherit' }}>
                         <IconComponent size={18} />
                       </Avatar>
                     ) : undefined
                   }
                   sx={{
                     width: '100%',
-                    fontWeight: 500,
-                    py: 0.5,
+                    py: 2.5,
+                    border: '1px solid',
+                    borderColor: 'divider',
                     justifyContent: 'flex-start',
-                    pl: 0.5,
-                    transition: 'transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease',
+                    pl: 1,
+                    transition: 'all 0.2s ease',
                     '&:hover': {
-                      transform: 'scale(1.05)',
-                      backgroundColor: 'secondary.light',
-                      boxShadow: 3,
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      borderColor: 'primary.main',
+                      transform: 'translateY(-2px)',
                     },
+                    '& .MuiChip-avatar': {
+                      color: 'inherit'
+                    }
                   }}
                 />
               </Box>

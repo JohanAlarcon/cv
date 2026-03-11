@@ -12,62 +12,43 @@ export default function AchievementsSection() {
     ];
 
     return (
-        <Box component="section">
+        <Box component="section" sx={{ mb: 6 }}>
             <Typography
-                variant="h3"
+                variant="h2"
                 color="primary"
                 gutterBottom
                 sx={{
-                    position: 'relative',
-                    fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
-                    fontWeight: 600,
-                    mb: 2,
-                    '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        bottom: -4,
-                        left: 0,
-                        width: 40,
-                        height: 4,
-                        bgcolor: 'accent.light',
-                        borderRadius: 2
-                    }
+                    mb: 4,
+                    display: 'inline-block',
                 }}
             >
                 Logros
             </Typography>
 
             {/* Grid responsive de tarjetas */}
-            <Grid container spacing={2}>
+            <Grid container spacing={4}>
                 {achievements.map((text, idx) => (
-                    <Grid item xs={12} md={6} key={idx}>
+                    <Grid item xs={12} key={idx}>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: idx * 0.2 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: idx * 0.1 }}
                         >
                             <Paper
-                                elevation={3}
                                 sx={{
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    p: { xs: 2, md: 3 },
-                                    borderLeft: `4px solid ${theme.palette.accent.main}`,
-                                    borderRadius: 1,
-                                    backgroundColor: 'background.paper',
+                                    alignItems: 'flex-start',
+                                    p: { xs: 3, md: 4 },
                                     height: '100%',
-                                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                                    '&:hover': {
-                                        transform: 'scale(1.03)',
-                                        boxShadow: 6
-                                    }
                                 }}
                             >
                                 <EmojiEventsIcon
                                     sx={{
                                         color: 'accent.main',
-                                        fontSize: { xs: 28, md: 32 },
+                                        fontSize: 32,
                                         mr: 2,
+                                        mt: 0.25,
                                         flexShrink: 0
                                     }}
                                 />
@@ -75,8 +56,7 @@ export default function AchievementsSection() {
                                     variant="body1"
                                     sx={{
                                         fontWeight: 500,
-                                        lineHeight: 1.5,
-                                        fontSize: { xs: '0.9rem', md: '1rem' }
+                                        lineHeight: 1.6,
                                     }}
                                 >
                                     {text}

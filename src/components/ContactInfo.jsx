@@ -35,27 +35,15 @@ export default function ContactInfo() {
   ];
 
   return (
-    <Box component="section" sx={{ mt: 4 }}>
+    <Box component="section" sx={{ mb: 6 }}>
       {/* Título de sección */}
       <Typography
-        variant="h3"
+        variant="h2"
         color="primary"
         gutterBottom
         sx={{
-          position: 'relative',
-          fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
-          fontWeight: 600,
-          mb: 2,
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: -4,
-            left: 0,
-            width: 40,
-            height: 4,
-            bgcolor: 'accent.light',
-            borderRadius: 2
-          }
+          mb: 4,
+          display: 'inline-block',
         }}
       >
         Contacto
@@ -64,83 +52,93 @@ export default function ContactInfo() {
       {/* Contenedor animado */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
         <Paper
-          elevation={3}
           sx={{
-            p: { xs: 2, sm: 3 },
-            borderLeft: `4px solid ${theme.palette.accent.main}`,
-            backgroundColor: 'background.paper',
-            borderRadius: 2
+            p: { xs: 3, sm: 4 },
           }}
         >
-          <Grid container spacing={2}  justifyContent="center" alignItems="center">
+          <Grid container spacing={3} direction="column">
             {/* Datos de contacto */}
-            {contacts.map(({ Icon, label, href }, idx) => (
-              <Grid 
-                item 
-                key={idx} 
-                xs={12} 
-                sm={6} 
-                md={4}
-              >
-                <Box 
-                  display="flex" 
-                  alignItems="center" 
-                  sx={{
-                    justifyContent: { xs: 'center', sm: 'flex-start' }
-                  }}
-                >
-                  <Icon 
-                    color="primary" 
-                    fontSize="small" 
-                    sx={{ mr: 1 }} 
-                  />
-                  {href ? (
-                    <Link 
-                      href={href}
-                      variant="body1"
-                      underline="hover"
-                      sx={{ wordBreak: 'break-all' }}
-                    >
-                      {label}
-                    </Link>
-                  ) : (
-                    <Typography variant="body1">
-                      {label}
-                    </Typography>
-                  )}
-                </Box>
-              </Grid>
-            ))}
-
-            {/* Iconos sociales / CV */}
-            {socials.map(({ Icon, title, href }, idx) => (
-              <Grid  item  key={idx}  xs={4}  sm={2}  md={2}>
-                <Box 
-                  display="flex" 
-                  justifyContent="center"
-                >
-                  <Tooltip title={title}>
-                    <IconButton
-                      href={href}
-                      color="primary"
-                      sx={{
-                        transition: 'transform 0.2s ease, color 0.2s ease',
-                        '&:hover': {
-                          transform: 'scale(1.2)',
-                          color: theme.palette.secondary.main
-                        }
-                      }}
+            <Grid item>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {contacts.map(({ Icon, label, href }, idx) => (
+                  <Box 
+                    key={idx}
+                    display="flex" 
+                    alignItems="center" 
+                  >
+                    <Box 
+                       sx={{
+                         bgcolor: 'primary.50',
+                         color: 'primary.main',
+                         p: 1.5,
+                         borderRadius: '12px',
+                         display: 'flex',
+                         mr: 2,
+                       }}
                     >
                       <Icon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              </Grid>
-            ))}
+                    </Box>
+                    {href ? (
+                      <Link 
+                        href={href}
+                        variant="body1"
+                        underline="none"
+                        sx={{ 
+                          wordBreak: 'break-all', 
+                          fontWeight: 500,
+                          '&:hover': { color: 'accent.main' }
+                        }}
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <Typography variant="body1" fontWeight={500}>
+                        {label}
+                      </Typography>
+                    )}
+                  </Box>
+                ))}
+              </Box>
+            </Grid>
+
+            {/* Divider */}
+            <Grid item>
+                <Box sx={{ height: '1px', bgcolor: 'divider', my: 1 }} />
+            </Grid>
+
+            {/* Iconos sociales / CV */}
+            <Grid item>
+              <Box display="flex" gap={2}>
+                {socials.map(({ Icon, title, href }, idx) => (
+                    <Tooltip title={title} key={idx}>
+                      <IconButton
+                        href={href}
+                        target="_blank"
+                        sx={{
+                          bgcolor: 'transparent',
+                          border: '1px solid',
+                          borderColor: 'divider',
+                          color: 'text.secondary',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            transform: 'translateY(-2px)',
+                            color: 'primary.main',
+                            borderColor: 'primary.main',
+                            bgcolor: 'primary.50'
+                          }
+                        }}
+                      >
+                        <Icon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                ))}
+              </Box>
+            </Grid>
           </Grid>
         </Paper>
       </motion.div>

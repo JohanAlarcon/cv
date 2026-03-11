@@ -16,35 +16,16 @@ export default function ProfileSection() {
         transition={{ duration: 0.5 }}
       >
         <Typography
-          variant="h3"
+          variant="h2"
           color="primary"
           gutterBottom
-          sx={{
-            position: 'relative',
-            fontSize: { xs: '1.4rem', sm: '1.6rem', md: '1.8rem' },
-            fontWeight: 600,
-            mb: 2,
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: -4,
-              left: 0,
-              width: 40,
-              height: 4,
-              bgcolor: 'accent.light',
-              borderRadius: 2
-            }
-          }}
+          sx={{ mb: 4 }}
         >
-          Perfil profesional
+          Perfil Profesional
         </Typography>
         <Paper
-          elevation={3}
           sx={{
-            p: { xs: 2, sm: 3 },
-            borderLeft: `4px solid ${theme.palette.accent.main}`,
-            backgroundColor: 'background.paper',
-            borderRadius: 2
+            p: { xs: 3, sm: 4 },
           }}
         >
 
@@ -52,17 +33,11 @@ export default function ProfileSection() {
           <Typography
             variant="body1"
             sx={{
-              fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
               textAlign: 'justify',
-              lineHeight: 1.6,
-              color: 'text.primary',
             }}
           >
-            <strong>Desarrollador de software</strong> con 5 años de experiencia en el desarrollo
-            de aplicaciones web y sistemas a medida. Experto en <strong>PHP</strong>, <strong>Laravel</strong>,
-            <strong>JavaScript</strong> y <strong>MySQL</strong>. Me caracterizo por escribir código limpio,
-            escalable y por mi capacidad de adaptación a nuevas tecnologías y
-            metodologías ágiles.
+            <strong>Desarrollador de Software</strong> con más de 5 años de experiencia en el ciclo completo de vida de
+            aplicaciones web y sistemas empresariales. Experto en el ecosistema <strong>PHP / Laravel</strong> y en la creación de interfaces interactivas con <strong>JavaScript / React</strong>. Me apasiona resolver problemas técnicos complejos creando arquitecturas limpias y escalables, manteniendo siempre el foco en la experiencia del usuario y en aportar valor real al negocio.
           </Typography>
         </Paper>
       </motion.div>
