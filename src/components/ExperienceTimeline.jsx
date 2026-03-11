@@ -19,7 +19,7 @@ export default function ExperienceTimeline() {
 
     const items = [
         {
-            date: '2024–2025',
+            date: '2024–2026',
             title: 'Desarrollador de Software',
             company: 'Alcaldía de Ibagué',
             icon: <BusinessCenter />,
@@ -54,7 +54,7 @@ export default function ExperienceTimeline() {
     ];
 
     return (
-        <Box component="section" sx={{ mb: 6 }}>
+        <Box component="section" sx={{ mb: 4 }}>
 
             <Typography
                 variant="h2"
@@ -90,10 +90,11 @@ export default function ExperienceTimeline() {
                             <TimelineDot
                                 sx={{
                                     p: 1.5,
-                                    bgcolor: 'primary.50',
+                                    bgcolor: '#eef2ff',
                                     color: 'primary.main',
-                                    border: `2px solid ${theme.palette.primary.main}`,
-                                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+                                    border: `2px solid`,
+                                    borderColor: 'primary.main',
+                                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                                 }}
                             >
                                 {item.icon}
@@ -106,9 +107,8 @@ export default function ExperienceTimeline() {
                         <TimelineContent sx={{ py: { xs: 2, md: '24px' }, px: { xs: 2, md: 3 } }}>
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: idx * 0.2 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: idx * 0.15 }}
                             >
                                 <Paper
                                     sx={{

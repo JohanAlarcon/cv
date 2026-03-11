@@ -35,7 +35,7 @@ export default function ContactInfo() {
   ];
 
   return (
-    <Box component="section" sx={{ mb: 6 }}>
+    <Box component="section" sx={{ mb: 4 }}>
       {/* Título de sección */}
       <Typography
         variant="h2"
@@ -58,62 +58,67 @@ export default function ContactInfo() {
       >
         <Paper
           sx={{
-            p: { xs: 3, sm: 4 },
+            p: { xs: 3, md: 4 },
+            width: '100%',
           }}
         >
-          <Grid container spacing={3} direction="column">
-            {/* Datos de contacto */}
-            <Grid item>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Grid container spacing={4} alignItems="center">
+            {/* Datos de contacto distribuidos horizontalmente en desktop */}
+            <Grid item xs={12} md={12}>
+              <Grid container spacing={3}>
                 {contacts.map(({ Icon, label, href }, idx) => (
-                  <Box 
-                    key={idx}
-                    display="flex" 
-                    alignItems="center" 
-                  >
+                  <Grid item xs={12} sm={6} md={idx === 2 ? 12 : 6} lg={4} key={idx}>
                     <Box 
-                       sx={{
-                         bgcolor: 'primary.50',
-                         color: 'primary.main',
-                         p: 1.5,
-                         borderRadius: '12px',
-                         display: 'flex',
-                         mr: 2,
-                       }}
+                      display="flex" 
+                      alignItems="center" 
                     >
-                      <Icon fontSize="small" />
-                    </Box>
-                    {href ? (
-                      <Link 
-                        href={href}
-                        variant="body1"
-                        underline="none"
-                        sx={{ 
-                          wordBreak: 'break-all', 
-                          fontWeight: 500,
-                          '&:hover': { color: 'accent.main' }
-                        }}
+                      <Box 
+                         sx={{
+                           bgcolor: '#eef2ff',
+                           color: 'primary.main',
+                           p: 1.5,
+                           borderRadius: '12px',
+                           display: 'flex',
+                           mr: 2,
+                         }}
                       >
-                        {label}
-                      </Link>
-                    ) : (
-                      <Typography variant="body1" fontWeight={500}>
-                        {label}
-                      </Typography>
-                    )}
-                  </Box>
+                        <Icon fontSize="small" />
+                      </Box>
+                      {href ? (
+                        <Link 
+                          href={href}
+                          variant="body1"
+                          underline="none"
+                          sx={{ 
+                            wordBreak: 'break-all', 
+                            fontWeight: 500,
+                            '&:hover': { color: 'accent.main' }
+                          }}
+                        >
+                          {label}
+                        </Link>
+                      ) : (
+                        <Typography variant="body1" fontWeight={500}>
+                          {label}
+                        </Typography>
+                      )}
+                    </Box>
+                  </Grid>
                 ))}
-              </Box>
+              </Grid>
             </Grid>
 
-            {/* Divider */}
-            <Grid item>
+            {/* Separador vertical en desktop, horizontal en móvil */}
+            <Grid item xs={12} md="auto" sx={{ display: { xs: 'block', md: 'none' } }}>
                 <Box sx={{ height: '1px', bgcolor: 'divider', my: 1 }} />
             </Grid>
+            <Grid item md sx={{ display: { xs: 'none', md: 'block' }, alignSelf: 'stretch' }}>
+                <Box sx={{ width: '1px', bgcolor: 'divider', height: '100%', mx: 'auto' }} />
+            </Grid>
 
-            {/* Iconos sociales / CV */}
-            <Grid item>
-              <Box display="flex" gap={2}>
+            {/* Iconos sociales */}
+            <Grid item xs={12} md={3}>
+              <Box display="flex" gap={2} justifyContent={{ xs: 'center', md: 'flex-end' }}>
                 {socials.map(({ Icon, title, href }, idx) => (
                     <Tooltip title={title} key={idx}>
                       <IconButton
@@ -129,7 +134,7 @@ export default function ContactInfo() {
                             transform: 'translateY(-2px)',
                             color: 'primary.main',
                             borderColor: 'primary.main',
-                            bgcolor: 'primary.50'
+                            bgcolor: '#eef2ff'
                           }
                         }}
                       >

@@ -54,7 +54,7 @@ export default function SkillsSection() {
 
       <Paper
         sx={{
-          p: { xs: 3, sm: 4 },
+          p: { xs: 5, sm: 12, md: 12, lg: 8 },
         }}
       >
         {/* ===== Grid responsive de Chips ===== */}
@@ -66,7 +66,7 @@ export default function SkillsSection() {
               xs: 'repeat(2, 1fr)',   
               sm: 'repeat(3, 1fr)',   
               md: 'repeat(4, 1fr)',
-              lg: 'repeat(6, 1fr)',
+              lg: 'repeat(9, 1fr)',
             },
             gap: 2,
             listStyle: 'none',
@@ -98,7 +98,7 @@ export default function SkillsSection() {
                     pl: 1,
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: 'primary.50',
+                      backgroundColor: '#eef2ff',
                       color: 'primary.main',
                       borderColor: 'primary.main',
                       transform: 'translateY(-2px)',

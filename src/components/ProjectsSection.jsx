@@ -1,7 +1,6 @@
 import { Box, Typography, Grid, Paper, Chip, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
 
 export default function ProjectsSection() {
@@ -11,26 +10,28 @@ export default function ProjectsSection() {
     {
       title: 'Plataforma Descubre Ibagué',
       description: 'Plataforma oficial para la promoción turística de Ibagué. Desarrollada para la Alcaldía, permite a los usuarios explorar lugares, eventos y rutas gastronómicas de la ciudad, con un panel administrativo completo.',
-      image: 'https://images.unsplash.com/photo-1596423735880-5f2a68897f1f?auto=format&fit=crop&q=80&w=600',
-      tags: ['Laravel', 'MySQL', 'PHP', 'Tailwind CSS'],
-      demoLink: '#',
+      image: `${process.env.PUBLIC_URL}/descubre-ibague.png`,
+      tags: ['Laravel', 'MySQL', 'PHP', 'Vue'],
+      demoLink: 'https://turismo.ibague.gov.co/',
     },
     {
-      title: 'Plataforma Integrada de Sistemas',
-      description: 'Sistema modular para la gestión interna de procesos de la Alcaldía. Optimizó y digitalizó flujos de trabajo previamente manuales, incluyendo manejo documental y reportes.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600',
-      tags: ['Laravel', 'React', 'MySQL', 'Docker'],
+      title: 'Sistema de Gestión para Barberías',
+      description: 'Aplicación web diseñada para la gestión integral de barberías. Incluye agendamiento de citas, calendario interactivo, y un panel de control para el seguimiento preciso de los ingresos y comisiones del salón.',
+      image: `${process.env.PUBLIC_URL}/barbershop_dashboard.jpg`,
+      tags: ['React', 'Nest.js', 'MUI', 'MySQL'],
+      demoLink: 'https://stylecloud.online/',
     },
     {
-      title: 'Apps Web y Sitios Corporativos',
-      description: 'Múltiples proyectos desarrollados con SIANDSI incluyendo aplicaciones web personalizadas, sitios institucionales (NextJS) y sistemas de mantenimiento para clientes de diversos sectores.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600',
-      tags: ['NextJS', 'React', 'PHP', 'MySQL'],
+      title: 'Curaduría Cloud | Software Especializado',
+      description: 'Solución definitiva en la nube para la gestión integral de Curadurías Urbanas en Colombia. Facilita la radicación digital, control de expedientes y el cumplimiento de la Ley 388 y el Decreto 1077.',
+      image: 'https://JohanAlarcon.github.io/landing-page-curaduria/images/hero-bg_2.png',
+      tags: ['Laravel', 'Livewire', 'Gestión Documental'],
+      demoLink: 'https://johanalarcon.github.io/landing-page-curaduria/',
     }
   ];
 
   return (
-    <Box component="section" sx={{ mb: 6 }}>
+    <Box component="section" sx={{ mb: 4 }}>
       <Typography
         variant="h2"
         color="primary"
@@ -54,7 +55,7 @@ export default function ProjectsSection() {
         Proyectos Destacados
       </Typography>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={3}>
         {projects.map((project, idx) => (
           <Grid item xs={12} md={6} lg={4} key={idx}>
             <motion.div
@@ -81,7 +82,7 @@ export default function ProjectsSection() {
                 {/* Project Image */}
                 <Box
                   sx={{
-                    height: 200,
+                    height: 160,
                     width: '100%',
                     backgroundImage: `url(${project.image})`,
                     backgroundSize: 'cover',
@@ -91,7 +92,7 @@ export default function ProjectsSection() {
                 />
                 
                 {/* Project Content */}
-                <Box sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ p: 2.5, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Typography variant="h3" sx={{ mb: 1, fontSize: '1.25rem' }}>
                     {project.title}
                   </Typography>
@@ -126,18 +127,9 @@ export default function ProjectsSection() {
                         href={project.demoLink}
                         target="_blank"
                       >
-                        Demo
+                        App
                       </Button>
                     )}
-                    <Button 
-                      size="small" 
-                      variant="outlined" 
-                      color="secondary"
-                      startIcon={<GitHubIcon fontSize="small"/>}
-                      sx={{ borderWidth: 2, '&:hover': { borderWidth: 2 } }}
-                    >
-                      Código
-                    </Button>
                   </Box>
                 </Box>
               </Paper>

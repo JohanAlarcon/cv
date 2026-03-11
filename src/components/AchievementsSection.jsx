@@ -12,7 +12,7 @@ export default function AchievementsSection() {
     ];
 
     return (
-        <Box component="section" sx={{ mb: 6 }}>
+        <Box component="section" sx={{ mb: 4 }}>
             <Typography
                 variant="h2"
                 color="primary"

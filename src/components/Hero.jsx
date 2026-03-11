@@ -48,7 +48,7 @@ export default function Hero() {
         <Box
           sx={{
             textAlign: 'center',
-            py: { xs: 8, md: 12 },
+            py: { xs: 5, md: 7 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -63,10 +63,10 @@ export default function Hero() {
               src={`${process.env.PUBLIC_URL}/perfil.jpg`}
               alt="Johan Alarcón"
               sx={{
-                width: { xs: 120, md: 160 },
-                height: { xs: 120, md: 160 },
+                width: { xs: 96, md: 128 },
+                height: { xs: 96, md: 128 },
                 mx: 'auto',
-                mb: 4,
+                mb: 2.5,
                 border: `4px solid rgba(255, 255, 255, 0.2)`,
                 backgroundClip: 'padding-box',
                 boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.5)',
@@ -79,7 +79,7 @@ export default function Hero() {
             label="Open to work" 
             color="success" 
             size="small" 
-            sx={{ mb: 3, fontWeight: 600, bgcolor: 'rgba(16, 185, 129, 0.2)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.5)' }} 
+            sx={{ mb: 2, fontWeight: 600, bgcolor: 'rgba(16, 185, 129, 0.2)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.5)' }} 
           />
 
           <Typography
@@ -90,33 +90,34 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             sx={{
               color: '#fff',
-              mb: 2,
+              mb: 1.5,
               px: 2,
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
             }}
           >
             Johan Darío Alarcón
           </Typography>
 
           <Typography
-            variant="h4"
             component={motion.p}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             sx={{
-              color: 'text.secondary',
-              mb: 5,
+              mb: 3.5,
               fontWeight: 400,
-              maxWidth: '600px',
-              color: 'rgba(255,255,255,0.7)'
+              maxWidth: '540px',
+              color: 'rgba(255,255,255,0.7)',
+              fontSize: { xs: '0.9rem', md: '1rem' },
+              lineHeight: 1.6,
             }}
           >
-             Software Engineer especializado en ecosistemas web modernos (PHP/Laravel & React). Construyendo soluciones de alto rendimiento.
+            Software Engineer especializado en ecosistemas web modernos (PHP/Laravel). Construyendo soluciones de alto rendimiento.
           </Typography>
 
           <Stack 
             direction={{ xs: 'column', sm: 'row' }} 
-            spacing={3}
+            spacing={2}
             component={motion.div}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

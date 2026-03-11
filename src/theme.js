@@ -50,12 +50,12 @@ const theme = createTheme({
     h2: {
       fontFamily: '"Outfit", sans-serif',
       fontWeight: 600,
-      fontSize: '1.75rem',
+      fontSize: '1.35rem',
       '@media (min-width:600px)': {
-        fontSize: '2rem',
+        fontSize: '1.6rem',
       },
       '@media (min-width:960px)': {
-        fontSize: '2.25rem',
+        fontSize: '1.875rem',
       },
       letterSpacing: '-0.01em',
     },
@@ -119,8 +119,8 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          padding: '1.5rem',
-          marginBottom: '1.5rem',
+          padding: '1.25rem',
+          marginBottom: 0,
           borderRadius: '16px',
           border: '1px solid #e2e8f0', // Slate 200 soft border
           boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)', // Soft shadow
