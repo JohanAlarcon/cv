@@ -33,7 +33,19 @@ export default function App() {
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          bgcolor: 'background.default',
+          backgroundBlendMode: 'overlay',
+          position: 'relative',
+          '&::before': {
+            //position: 'relative',
+            position: 'absolute',
+            content: '""',
+            inset: 0,
+            backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpg)`,
+            backgroundSize: 'cover, auto',
+            backgroundPosition: 'center',
+            opacity: 0.05,          // ajusta opacidad al gusto (0.0–1.0)
+            zIndex: 0,
+          }
         }}
       >
         <Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 }, px: { xs: 2, md: 4 } }}>
