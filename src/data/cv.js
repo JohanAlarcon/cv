@@ -7,6 +7,14 @@
 
 const asset = (file) => `${process.env.PUBLIC_URL}/${file}`;
 
+// Inicio de la carrera profesional (SIANDSI, abril de 2019).
+// Los años de experiencia se calculan solos: así el CV no se queda desfasado
+// cada enero, que es el error más común en las hojas de vida.
+const CAREER_START = new Date(2019, 3, 1);
+export const yearsOfExperience = Math.floor(
+  (Date.now() - CAREER_START.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+);
+
 export const profile = {
   name: 'Johan Darío Alarcón Ayala',
   shortName: 'Johan Alarcón',
@@ -24,14 +32,14 @@ export const profile = {
 
   // Perfil completo (web).
   summary:
-    'Desarrollador de Software con 6 años de experiencia en el ciclo de vida completo de aplicaciones web ' +
+    `Desarrollador de Software con ${yearsOfExperience} años de experiencia en el ciclo de vida completo de aplicaciones web ` +
     'y sistemas empresariales, tanto en el sector público como en el privado. Especializado en el ecosistema ' +
     'PHP / Laravel y en la construcción de interfaces con JavaScript / React. Trabajo con foco en ' +
     'arquitecturas limpias y escalables, calidad de código, documentación de procesos y entrega continua de valor.',
 
   // Versión condensada (PDF / ATS).
   summaryPrint:
-    'Ingeniero de Sistemas con 6 años de experiencia en el ciclo de vida completo de aplicaciones web y ' +
+    `Ingeniero de Sistemas con ${yearsOfExperience} años de experiencia en el ciclo de vida completo de aplicaciones web y ` +
     'sistemas empresariales, en el sector público y privado. Especializado en PHP / Laravel, JavaScript / React ' +
     'y MySQL. Experiencia en levantamiento de requisitos, diseño de bases de datos, documentación bajo ' +
     'estándares institucionales, capacitación a usuarios y soporte en producción.',
@@ -95,15 +103,16 @@ export const experience = [
     id: 'alcaldia',
     role: 'Desarrollador de Software',
     company: 'Alcaldía de Ibagué',
-    context: 'Secretaría de las TIC · Sector público',
-    period: '2024 — 2026',
+    context: 'Contrato de prestación de servicios · Secretaría de las TIC',
+    period: '2024 — Presente',
+    current: true,
     location: 'Ibagué, Colombia',
     summary:
-      'Desarrollo y mantenimiento de módulos de la Plataforma Integrada de Sistemas del municipio.',
+      'Responsable del desarrollo de la Plataforma Integrada de Sistemas del municipio.',
     highlights: [
-      'Desarrollo de módulos para la Plataforma Integrada de Sistemas con Laravel y MySQL.',
-      'Documentación de procesos siguiendo los estándares definidos por la Secretaría de las TIC.',
+      'Desarrollo completo de la Plataforma Integrada de Sistemas con Laravel y MySQL, hoy en uso por la ciudadanía de Ibagué.',
       'Diseño y puesta en producción de la plataforma turística Descubre Ibagué.',
+      'Documentación de procesos siguiendo los estándares definidos por la Secretaría de las TIC.',
       'Capacitación a usuarios finales y soporte técnico de segundo nivel.',
       'Optimización de procesos internos y automatización de tareas manuales.',
     ],
@@ -113,7 +122,7 @@ export const experience = [
     id: 'siandsi',
     role: 'Desarrollador de Software',
     company: 'SIANDSI',
-    context: 'Software a la medida · Sector privado',
+    context: 'Software a la medida · Sector privado · Medio tiempo desde 2024',
     period: 'Abr 2019 — 2025',
     location: 'Ibagué, Colombia',
     summary:
@@ -141,7 +150,24 @@ export const education = [
   },
 ];
 
-export const languages = [{ name: 'Español', level: 'Nativo' }];
+export const languages = [
+  { name: 'Español', level: 'Nativo' },
+  { name: 'Inglés', level: 'Intermedio (B1)' },
+];
+
+// Credencial habilitante: en las convocatorias públicas colombianas la
+// matrícula del COPNIA es requisito para ejercer como ingeniero.
+// Se publica solo el número de matrícula (verificable en el registro público
+// del COPNIA); la cédula NO se incluye por tratarse de un dato sensible.
+export const credentials = [
+  {
+    id: 'copnia',
+    label: 'Matrícula profesional',
+    value: '161122-0574508 TLM',
+    issuer: 'COPNIA — Consejo Profesional Nacional de Ingeniería',
+    note: 'Ingeniería de Sistemas',
+  },
+];
 
 // Agrupadas por dominio: se leen más rápido que una lista plana de 12 chips.
 export const technicalSkills = [
@@ -231,9 +257,10 @@ export const projects = [
     subtitle: 'Sistema de gestión para barberías',
     description:
       'Aplicación web para la gestión integral de barberías: agendamiento de citas, calendario interactivo ' +
-      'y panel de control para el seguimiento de ingresos y comisiones.',
+      'y panel de control para el seguimiento de ingresos y comisiones. En producción, gestionando la ' +
+      'operación diaria de una barbería.',
     descriptionPrint:
-      'Agendamiento de citas, calendario interactivo y control de ingresos y comisiones.',
+      'En producción: agendamiento de citas, calendario y control de ingresos y comisiones.',
     image: asset('barbershop_dashboard.jpg'),
     tags: ['React', 'Nest.js', 'MUI', 'MySQL'],
     link: 'https://stylecloud.online/',
@@ -278,7 +305,7 @@ export const achievements = [
 
 // Métricas derivadas de los datos anteriores: nada inventado.
 export const metrics = [
-  { value: '6+', label: 'Años de experiencia' },
+  { value: `${yearsOfExperience}+`, label: 'Años de experiencia' },
   { value: String(projects.length), label: 'Proyectos destacados' },
   {
     value: `${technicalSkills.reduce((n, g) => n + g.items.length, 0)}+`,

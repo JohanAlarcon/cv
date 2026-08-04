@@ -13,6 +13,7 @@ import {
   softSkills,
   projects,
   achievements,
+  credentials,
   pdfUrl,
   pdfFileName,
 } from '../data/cv';
@@ -177,6 +178,14 @@ export default function CvDocument({ autoPrint = false }) {
                     {e.period} · {e.location}
                   </p>
                 </div>
+              ))}
+
+              {/* Requisito habilitante en convocatorias públicas. */}
+              {credentials.map((c) => (
+                <p className="cv-credential" key={c.id}>
+                  <strong>{c.label}:</strong> {c.value}
+                  <span className="cv-credential__issuer">COPNIA</span>
+                </p>
               ))}
             </section>
 

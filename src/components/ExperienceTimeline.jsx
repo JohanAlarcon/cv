@@ -2,7 +2,7 @@
 import { Box, Typography, Paper, Chip, Stack } from '@mui/material';
 import Section, { cardSx, cardHoverSx } from './Section';
 import Reveal from './Reveal';
-import { experience } from '../data/cv';
+import { experience, yearsOfExperience } from '../data/cv';
 
 /**
  * Timeline de una sola columna. La versión alternante obliga a la mirada a
@@ -14,7 +14,7 @@ export default function ExperienceTimeline() {
       id="experiencia"
       eyebrow="02 / Trayectoria"
       title="Experiencia profesional"
-      description="Seis años construyendo y manteniendo software en producción, en el sector público y en el privado."
+      description={`${yearsOfExperience} años construyendo y manteniendo software en producción, en el sector público y en el privado.`}
     >
       <Box
         sx={{
@@ -86,19 +86,32 @@ export default function ExperienceTimeline() {
                     </Typography>
                   </Box>
 
-                  <Typography
-                    component="time"
-                    sx={{
-                      fontFamily: (t) => t.typography.overline.fontFamily,
-                      fontSize: '0.76rem',
-                      letterSpacing: '0.04em',
-                      color: 'text.secondary',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {job.period}
-                  </Typography>
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ flexShrink: 0 }}>
+                    {job.current && (
+                      <Box
+                        aria-hidden
+                        sx={{
+                          width: 7,
+                          height: 7,
+                          borderRadius: '50%',
+                          bgcolor: 'success.main',
+                          boxShadow: (t) => `0 0 0 3px ${t.palette.success.main}25`,
+                        }}
+                      />
+                    )}
+                    <Typography
+                      component="time"
+                      sx={{
+                        fontFamily: (t) => t.typography.overline.fontFamily,
+                        fontSize: '0.76rem',
+                        letterSpacing: '0.04em',
+                        color: job.current ? 'text.primary' : 'text.secondary',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {job.period}
+                    </Typography>
+                  </Stack>
                 </Stack>
 
                 <Typography variant="caption" sx={{ color: 'text.disabled', display: 'block', mb: 2 }}>

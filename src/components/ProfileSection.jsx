@@ -33,15 +33,13 @@ export default function ProfileSection() {
             {profile.summary}
           </Typography>
 
-          <Stack direction="row" spacing={1} sx={{ mt: 3 }} flexWrap="wrap" useFlexGap>
+          <Stack direction="row" spacing={1.5} sx={{ mt: 3 }} flexWrap="wrap" useFlexGap alignItems="center">
             <Typography variant="overline" sx={{ color: 'text.disabled' }}>
               Idiomas
             </Typography>
-            {languages.map((l) => (
-              <Typography key={l.name} variant="body2" sx={{ color: 'text.secondary' }}>
-                {l.name} — {l.level}
-              </Typography>
-            ))}
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {languages.map((l) => `${l.name} — ${l.level}`).join('  ·  ')}
+            </Typography>
           </Stack>
         </Reveal>
 

@@ -277,6 +277,23 @@
   color: var(--cv-dim);
 }
 
+.cv-credential {
+  margin: 1.6mm 0 0;
+  font-size: 8.5pt;
+  color: var(--cv-dim);
+  line-height: 1.4;
+}
+
+.cv-credential strong { font-weight: 600; color: var(--cv-ink); }
+
+.cv-credential__issuer {
+  display: block;
+  font-family: var(--cv-mono);
+  font-size: 7.4pt;
+  letter-spacing: 0.05em;
+  color: var(--cv-faint);
+}
+
 .cv-lang { display: flex; justify-content: space-between; font-size: 8.7pt; color: var(--cv-dim); }
 .cv-lang strong { font-weight: 500; color: var(--cv-ink); }
 
