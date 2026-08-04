@@ -1,10 +1,16 @@
 {
   "files": {
-    "main.js": "https://johanalarcon.github.io/cv/static/js/main.cd773126.js",
+    "main.js": "https://johanalarcon.github.io/cv/static/js/main.a8aaf82a.js",
+    "static/css/726.fcaf17cf.chunk.css": "https://johanalarcon.github.io/cv/static/css/726.fcaf17cf.chunk.css",
+    "static/js/726.519f9eae.chunk.js": "https://johanalarcon.github.io/cv/static/js/726.519f9eae.chunk.js",
+    "static/js/453.bc03d405.chunk.js": "https://johanalarcon.github.io/cv/static/js/453.bc03d405.chunk.js",
     "index.html": "https://johanalarcon.github.io/cv/index.html",
-    "main.cd773126.js.map": "https://johanalarcon.github.io/cv/static/js/main.cd773126.js.map"
+    "main.a8aaf82a.js.map": "https://johanalarcon.github.io/cv/static/js/main.a8aaf82a.js.map",
+    "726.fcaf17cf.chunk.css.map": "https://johanalarcon.github.io/cv/static/css/726.fcaf17cf.chunk.css.map",
+    "726.519f9eae.chunk.js.map": "https://johanalarcon.github.io/cv/static/js/726.519f9eae.chunk.js.map",
+    "453.bc03d405.chunk.js.map": "https://johanalarcon.github.io/cv/static/js/453.bc03d405.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.cd773126.js"
+    "static/js/main.a8aaf82a.js"
   ]
 }
