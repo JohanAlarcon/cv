@@ -314,8 +314,11 @@
   gap: 4mm;
 }
 
-/* ─── Responsive de la vista en pantalla ────────────────────────────────── */
-@media (max-width: 760px) {
+/* ─── Responsive de la vista en pantalla ──────────────────────────────────
+   `screen and` es imprescindible: sin él esta regla también se evalúa al
+   imprimir y, si la caja de impresión queda por debajo de 760px, apila las dos
+   columnas y la hoja se va a varias páginas. */
+@media screen and (max-width: 760px) {
   .cv-page { padding: 20px; font-size: 11px; }
   .cv-body { grid-template-columns: 1fr; gap: 20px; }
   .cv-header { flex-direction: column-reverse; align-items: flex-start; gap: 14px; }

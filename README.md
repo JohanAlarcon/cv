@@ -28,7 +28,7 @@ PDF se generan a partir de él, así que no pueden quedar desincronizados.
 | `npm test` | Tests |
 | `npm run build` | Build de producción |
 | `npm run deploy` | Publica `build/` en GitHub Pages |
-| `npm run pdf` | Regenera el PDF estático (requiere Puppeteer, ver abajo) |
+| `npm run pdf` | Regenera `public/Hoja_de_Vida_Johan_Dario_Alarcon.pdf` |
 
 ## Hoja de vida en PDF
 
@@ -47,20 +47,32 @@ fondo** activados. El documento está calibrado para caber en **una página**
 ### Regenerar el PDF publicado
 
 `public/Hoja_de_Vida_Johan_Dario_Alarcon.pdf` es el archivo que descarga el botón
-principal. Para actualizarlo tras cambiar `src/data/cv.js`:
+principal. Tras cambiar `src/data/cv.js`, basta con:
 
 ```bash
-npm i -D puppeteer serve-handler   # una sola vez
-npm run build
 npm run pdf
 ```
 
-El script usa `preferCSSPageSize`, así que respeta el `@page` de `print.css`.
-También acepta apuntar al servidor de desarrollo:
+Sin dependencias extra: compila la app en un directorio temporal, la sirve en
+local y controla el Chrome ya instalado por DevTools Protocol. Al terminar
+informa del peso, del número de páginas y de si el texto quedó vectorial.
+
+Detalles que importan y que ya están resueltos en `scripts/generate-pdf.js`:
+
+- **No usa `chrome --print-to-pdf`**: esa bandera ignora los márgenes `@page` y
+  aplica los suyos (~1 pulgada), lo que estrecha la caja, reflowea el texto y
+  parte la hoja en dos páginas.
+- **Márgenes de la API en 0**: los de `Page.printToPDF` se *suman* a los del
+  `@page`, así que se anulan para que mande el CSS.
+- **Espera a las tipografías después del render de React**, no antes: las
+  fuentes solo se descargan cuando existe texto que las use.
+
+Si Chrome no está en la ruta habitual: `CHROME_PATH="/ruta/chrome" npm run pdf`.
+También puede apuntar al servidor de desarrollo:
 
 ```bash
-npm start                                   # en otra terminal
-npm run pdf -- --url=http://localhost:3000/?cv=1
+npm start                                        # en otra terminal
+npm run pdf -- --url=http://localhost:3000/cv/?cv=1
 ```
 
 ## Despliegue
