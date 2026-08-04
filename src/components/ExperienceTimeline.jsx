@@ -1,257 +1,159 @@
 // src/components/ExperienceTimeline.jsx
-import { useTheme, useMediaQuery, Box, Typography, Paper, Chip, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import {
-    Timeline,
-    TimelineItem,
-    TimelineSeparator,
-    TimelineDot,
-    TimelineConnector,
-    TimelineContent,
-    TimelineOppositeContent
-} from '@mui/lab';
-import { BusinessCenter, School, CheckCircle, CalendarMonth } from '@mui/icons-material';
-import { motion } from 'framer-motion';
+import { Box, Typography, Paper, Chip, Stack } from '@mui/material';
+import Section, { cardSx, cardHoverSx } from './Section';
+import Reveal from './Reveal';
+import { experience } from '../data/cv';
 
+/**
+ * Timeline de una sola columna. La versión alternante obliga a la mirada a
+ * zigzaguear; en un CV que se escanea en segundos, una sola columna gana.
+ */
 export default function ExperienceTimeline() {
-    const theme = useTheme();
-    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-
-    const items = [
-        {
-            date: '2024–2026',
-            title: 'Desarrollador de Software',
-            company: 'Alcaldía de Ibagué',
-            icon: <BusinessCenter />,
-            details: [
-                'Desarrollo de módulos para la Plataforma Integrada de Sistemas utilizando Laravel y MySQL.',
-                'Documentación de procesos siguiendo estándares definidos por la Secretaría de las TIC.',
-                'Capacitación a usuarios finales y soporte técnico.',
-                'Optimización de procesos internos y desarrollo de la plataforma Descubre Ibague.'
-            ]
-        },
-        {
-            date: 'Abr 2019–2025',
-            title: 'Desarrollador de Software',
-            company: 'SIANDSI',
-            icon: <BusinessCenter />,
-            details: [
-                'Apps web con PHP, Laravel, React, MySQL',
-                'Creacion de sitios web con NextJS y MySQL',
-                'Mantenimiento de aplicaciones existentes y soporte a clientes',
-                'Participación en proyectos de software a medida para clientes de diferentes sectores.'
-            ]
-        },
-        {
-            date: '2014–2019',
-            title: 'Ingeniería de Sistemas',
-            company: 'Univ. Cooperativa de Colombia',
-            icon: <School />,
-            details: [
-                'Desarrollo de software, Bases de datos'
-            ]
-        },
-    ];
-
-    /* ─── Detalle reutilizable (tarjeta interna) ─── */
-    const CardContent = ({ item, showDate }) => (
-        <Paper
-            sx={{
-                p: { xs: 2.5, md: 4 },
-                position: 'relative',
-                '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: '4px',
-                    bgcolor: 'primary.main',
-                    borderRadius: '16px 0 0 16px',
-                },
-            }}
-        >
-            {showDate && (
-                <Chip
-                    icon={<CalendarMonth sx={{ fontSize: 14 }} />}
-                    label={item.date}
-                    size="small"
-                    sx={{
-                        mb: 1.5,
-                        bgcolor: '#eef2ff',
-                        color: 'primary.main',
-                        fontWeight: 600,
-                        fontSize: '0.75rem',
-                        height: 26,
-                    }}
-                />
-            )}
-
-            <Typography
-                variant="h3"
+  return (
+    <Section
+      id="experiencia"
+      eyebrow="02 / Trayectoria"
+      title="Experiencia profesional"
+      description="Seis años construyendo y manteniendo software en producción, en el sector público y en el privado."
+    >
+      <Box
+        sx={{
+          position: 'relative',
+          display: 'grid',
+          gap: { xs: 3, md: 4 },
+          pl: { xs: 3.5, sm: 4.5 },
+          // Rail continuo detrás de los marcadores.
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            left: { xs: 7, sm: 11 },
+            top: 8,
+            bottom: 8,
+            width: '1px',
+            bgcolor: 'divider',
+          },
+        }}
+      >
+        {experience.map((job, idx) => (
+          <Reveal key={job.id} delay={idx * 0.08}>
+            <Box sx={{ position: 'relative' }}>
+              {/* Marcador */}
+              <Box
+                aria-hidden
                 sx={{
-                    mb: 0.5,
-                    fontSize: { xs: '1.05rem', md: '1.3rem' },
-                    fontWeight: 600,
+                  position: 'absolute',
+                  left: { xs: -28, sm: -36 },
+                  top: 26,
+                  width: 15,
+                  height: 15,
+                  borderRadius: '50%',
+                  bgcolor: 'background.default',
+                  border: '2px solid',
+                  borderColor: 'primary.main',
+                  display: 'grid',
+                  placeItems: 'center',
+                  '&::after': {
+                    content: '""',
+                    width: 5,
+                    height: 5,
+                    borderRadius: '50%',
+                    bgcolor: 'primary.main',
+                  },
                 }}
-            >
-                {item.title}
-            </Typography>
+              />
 
-            <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                sx={{ mb: 1.5, fontSize: { xs: '0.85rem', md: '0.95rem' } }}
-            >
-                {item.company}
-            </Typography>
-
-            {item.details.length > 0 && (
-                <List dense sx={{ p: 0 }}>
-                    {item.details.map((detail, j) => (
-                        <ListItem key={j} sx={{ px: 0, py: 0.25, alignItems: 'flex-start' }}>
-                            <ListItemIcon sx={{ minWidth: 24, mt: 0.5 }}>
-                                <CheckCircle sx={{ fontSize: 16, color: 'accent.main' }} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={
-                                    <Typography
-                                        variant="body2"
-                                        color="text.primary"
-                                        sx={{ fontSize: { xs: '0.82rem', md: '0.875rem' }, lineHeight: 1.5 }}
-                                    >
-                                        {detail}
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
-                    ))}
-                </List>
-            )}
-        </Paper>
-    );
-
-    /* ─── Layout MOBILE: tarjetas apiladas sin timeline ─── */
-    if (isSmall) {
-        return (
-            <Box component="section" sx={{ mb: 4 }}>
-                <Typography
-                    variant="h2"
-                    color="primary"
-                    gutterBottom
-                    sx={{ mb: 3, display: 'inline-block' }}
+              <Paper sx={[cardSx, cardHoverSx]}>
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  justifyContent="space-between"
+                  alignItems={{ xs: 'flex-start', sm: 'baseline' }}
+                  spacing={0.5}
+                  sx={{ mb: 1.5 }}
                 >
-                    Experiencia Laboral
+                  <Box>
+                    <Typography variant="h3" component="h3" sx={{ color: 'text.primary' }}>
+                      {job.role}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        mt: 0.4,
+                        fontSize: '0.95rem',
+                        fontWeight: 500,
+                        color: 'primary.main',
+                      }}
+                    >
+                      {job.company}
+                    </Typography>
+                  </Box>
+
+                  <Typography
+                    component="time"
+                    sx={{
+                      fontFamily: (t) => t.typography.overline.fontFamily,
+                      fontSize: '0.76rem',
+                      letterSpacing: '0.04em',
+                      color: 'text.secondary',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {job.period}
+                  </Typography>
+                </Stack>
+
+                <Typography variant="caption" sx={{ color: 'text.disabled', display: 'block', mb: 2 }}>
+                  {job.context} · {job.location}
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    {items.map((item, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: idx * 0.12 }}
-                        >
-                            <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start' }}>
-                                {/* Mini indicador vertical */}
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        pt: 1.5,
-                                        flexShrink: 0,
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            width: 36,
-                                            height: 36,
-                                            borderRadius: '10px',
-                                            bgcolor: '#eef2ff',
-                                            color: 'primary.main',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            border: '2px solid',
-                                            borderColor: 'primary.main',
-                                        }}
-                                    >
-                                        {item.icon}
-                                    </Box>
-                                    {idx < items.length - 1 && (
-                                        <Box sx={{ width: 2, flexGrow: 1, bgcolor: 'divider', mt: 1 }} />
-                                    )}
-                                </Box>
-
-                                {/* Tarjeta */}
-                                <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-                                    <CardContent item={item} showDate />
-                                </Box>
-                            </Box>
-                        </motion.div>
-                    ))}
+                <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gap: 1 }}>
+                  {job.highlights.map((h) => (
+                    <Box
+                      component="li"
+                      key={h}
+                      sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start' }}
+                    >
+                      <Box
+                        aria-hidden
+                        sx={{
+                          mt: '9px',
+                          width: 5,
+                          height: 5,
+                          borderRadius: '50%',
+                          flexShrink: 0,
+                          bgcolor: 'primary.main',
+                          opacity: 0.6,
+                        }}
+                      />
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {h}
+                      </Typography>
+                    </Box>
+                  ))}
                 </Box>
+
+                <Stack direction="row" spacing={0.75} flexWrap="wrap" useFlexGap sx={{ mt: 2.5 }}>
+                  {job.stack.map((tech) => (
+                    <Chip
+                      key={tech}
+                      label={tech}
+                      size="small"
+                      variant="outlined"
+                      sx={{
+                        height: 24,
+                        fontFamily: (t) => t.typography.overline.fontFamily,
+                        fontSize: '0.68rem',
+                        letterSpacing: '0.03em',
+                        color: 'text.secondary',
+                        bgcolor: (t) => t.palette.surface.subtle,
+                      }}
+                    />
+                  ))}
+                </Stack>
+              </Paper>
             </Box>
-        );
-    }
-
-    /* ─── Layout DESKTOP: timeline alternante clásica ─── */
-    return (
-        <Box component="section" sx={{ mb: 4 }}>
-            <Typography
-                variant="h2"
-                color="primary"
-                gutterBottom
-                sx={{ mb: 4, display: 'inline-block' }}
-            >
-                Experiencia Laboral
-            </Typography>
-
-            <Timeline
-                position="alternate"
-                sx={{
-                    px: 2,
-                    '& .MuiTimelineItem-root': { minHeight: 120 },
-                }}
-            >
-                {items.map((item, idx) => (
-                    <TimelineItem key={idx}>
-                        <TimelineOppositeContent sx={{ m: 'auto 0' }}>
-                            <Typography variant="caption" color="text.secondary" fontWeight={500}>
-                                {item.date}
-                            </Typography>
-                        </TimelineOppositeContent>
-
-                        <TimelineSeparator>
-                            <TimelineDot
-                                sx={{
-                                    p: 1.5,
-                                    bgcolor: '#eef2ff',
-                                    color: 'primary.main',
-                                    border: '2px solid',
-                                    borderColor: 'primary.main',
-                                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-                                }}
-                            >
-                                {item.icon}
-                            </TimelineDot>
-                            {idx < items.length - 1 && (
-                                <TimelineConnector sx={{ bgcolor: 'divider', width: 2 }} />
-                            )}
-                        </TimelineSeparator>
-
-                        <TimelineContent sx={{ py: '24px', px: 3 }}>
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.4, delay: idx * 0.15 }}
-                            >
-                                <CardContent item={item} showDate={false} />
-                            </motion.div>
-                        </TimelineContent>
-                    </TimelineItem>
-                ))}
-            </Timeline>
-        </Box>
-    );
-}
+          </Reveal>
+        ))}
+      </Box>
+    </Section>
+  );
+}

@@ -1,152 +1,159 @@
 // src/components/ContactInfo.jsx
-import { 
-  Box, 
-  Typography, 
-  Paper, 
-  Grid, 
-  Link, 
-  IconButton, 
-  Tooltip 
-} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { motion } from 'framer-motion';
-import {
-  LocationOn,
-  Phone,
-  Email,
-  LinkedIn,
-  GitHub,
-  Facebook
-} from '@mui/icons-material';
+import { Box, Typography, Paper, Stack, Link, Button, Divider } from '@mui/material';
+import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
+import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 
-export default function ContactInfo() {
-  const theme = useTheme();
+import Section from './Section';
+import Reveal from './Reveal';
+import { contact, socials, profile } from '../data/cv';
 
-  const contacts = [
-    { Icon: LocationOn, label: 'Ibagué, Colombia' },
-    { Icon: Phone,      label: '317 682 4754' },
-    { Icon: Email,      label: 'johandarioalarcon@gmail.com', href: 'mailto:johandarioalarcon@gmail.com' },
-  ];
+const SOCIAL_ICONS = { linkedin: LinkedInIcon, github: GitHubIcon };
 
-  const socials = [
-    { Icon: LinkedIn,     title: 'LinkedIn',    href: 'https://linkedin.com/in/johan-alarcon-2864812b7/' },
-    { Icon: GitHub,       title: 'GitHub',      href: 'https://github.com/JohanAlarcon' },
-    { Icon: Facebook,     title: 'Facebook',    href: 'https://www.facebook.com/alarconjohan' },
-  ];
+const CHANNELS = [
+  { id: 'email', Icon: MailRoundedIcon, label: 'Email', value: contact.email, href: contact.emailHref },
+  { id: 'phone', Icon: CallRoundedIcon, label: 'Teléfono', value: contact.phone, href: contact.phoneHref },
+  { id: 'place', Icon: PlaceRoundedIcon, label: 'Ubicación', value: contact.location },
+];
 
+export default function ContactInfo({ onDownload }) {
   return (
-    <Box id="contacto" component="section" sx={{ mb: 4 }}>
-      {/* Título de sección */}
-      <Typography
-        variant="h2"
-        color="primary"
-        gutterBottom
-        sx={{
-          mb: 4,
-          display: 'inline-block',
-        }}
-      >
-        Contacto
-      </Typography>
-
-      {/* Contenedor animado */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
+    <Section id="contacto" eyebrow="07 / Contacto" title="Hablemos">
+      <Reveal>
         <Paper
           sx={{
-            p: { xs: 3, md: 4 },
-            width: '100%',
+            p: { xs: 3, md: 5 },
+            borderRadius: 3,
+            border: '1px solid',
+            borderColor: (t) => t.palette.surface.accentBorder,
+            bgcolor: (t) => t.palette.surface.accentSoft,
           }}
         >
-          <Grid container spacing={4} alignItems="center">
-            {/* Datos de contacto distribuidos horizontalmente en desktop */}
-            <Grid item xs={12} md={12}>
-              <Grid container spacing={3}>
-                {contacts.map(({ Icon, label, href }, idx) => (
-                  <Grid item xs={12} sm={6} md={idx === 2 ? 12 : 6} lg={4} key={idx}>
-                    <Box 
-                      display="flex" 
-                      alignItems="center" 
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1fr) auto minmax(0, 1fr)' },
+              gap: { xs: 4, md: 5 },
+              alignItems: 'center',
+            }}
+          >
+            {/* Mensaje + CTA */}
+            <Box>
+              <Typography variant="h3" component="p" sx={{ color: 'text.primary', mb: 1.5 }}>
+                ¿Tienes un proyecto o una vacante en mente?
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+                {profile.available
+                  ? 'Estoy abierto a nuevas oportunidades y respondo en menos de 24 horas.'
+                  : 'Escríbeme y te respondo lo antes posible.'}
+              </Typography>
+
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                <Button
+                  variant="contained"
+                  href={contact.emailHref}
+                  startIcon={<MailRoundedIcon />}
+                  sx={{ px: 3 }}
+                >
+                  Escríbeme
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={onDownload}
+                  startIcon={<FileDownloadRoundedIcon />}
+                  sx={{ px: 3, bgcolor: 'background.paper' }}
+                >
+                  Descargar CV
+                </Button>
+              </Stack>
+            </Box>
+
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{ display: { xs: 'none', md: 'block' }, borderColor: (t) => t.palette.surface.accentBorder }}
+            />
+
+            {/* Canales */}
+            <Box>
+              <Stack spacing={2}>
+                {CHANNELS.map(({ id, Icon, label, value, href }) => (
+                  <Stack key={id} direction="row" spacing={1.75} alignItems="center">
+                    <Box
+                      aria-hidden
+                      sx={{
+                        flexShrink: 0,
+                        width: 36,
+                        height: 36,
+                        borderRadius: 2,
+                        display: 'grid',
+                        placeItems: 'center',
+                        color: 'primary.main',
+                        bgcolor: 'background.paper',
+                        border: '1px solid',
+                        borderColor: (t) => t.palette.surface.accentBorder,
+                      }}
                     >
-                      <Box 
-                         sx={{
-                           bgcolor: '#eef2ff',
-                           color: 'primary.main',
-                           p: 1.5,
-                           borderRadius: '12px',
-                           display: 'flex',
-                           mr: 2,
-                         }}
-                      >
-                        <Icon fontSize="small" />
-                      </Box>
+                      <Icon sx={{ fontSize: 17 }} />
+                    </Box>
+                    <Box sx={{ minWidth: 0 }}>
+                      <Typography variant="overline" sx={{ color: 'text.disabled', display: 'block' }}>
+                        {label}
+                      </Typography>
                       {href ? (
-                        <Link 
+                        <Link
                           href={href}
-                          variant="body1"
-                          underline="none"
-                          sx={{ 
-                            wordBreak: 'break-all', 
-                            fontWeight: 500,
-                            '&:hover': { color: 'accent.main' }
-                          }}
+                          sx={{ fontSize: '0.92rem', color: 'text.primary', wordBreak: 'break-word' }}
                         >
-                          {label}
+                          {value}
                         </Link>
                       ) : (
-                        <Typography variant="body1" fontWeight={500}>
-                          {label}
-                        </Typography>
+                        <Typography sx={{ fontSize: '0.92rem', color: 'text.primary' }}>{value}</Typography>
                       )}
                     </Box>
-                  </Grid>
+                  </Stack>
                 ))}
-              </Grid>
-            </Grid>
+              </Stack>
 
-            {/* Separador vertical en desktop, horizontal en móvil */}
-            <Grid item xs={12} md="auto" sx={{ display: { xs: 'block', md: 'none' } }}>
-                <Box sx={{ height: '1px', bgcolor: 'divider', my: 1 }} />
-            </Grid>
-            <Grid item md sx={{ display: { xs: 'none', md: 'block' }, alignSelf: 'stretch' }}>
-                <Box sx={{ width: '1px', bgcolor: 'divider', height: '100%', mx: 'auto' }} />
-            </Grid>
-
-            {/* Iconos sociales */}
-            <Grid item xs={12} md={3}>
-              <Box display="flex" gap={2} justifyContent={{ xs: 'center', md: 'flex-end' }}>
-                {socials.map(({ Icon, title, href }, idx) => (
-                    <Tooltip title={title} key={idx}>
-                      <IconButton
-                        href={href}
-                        target="_blank"
-                        sx={{
-                          bgcolor: 'transparent',
-                          border: '1px solid',
-                          borderColor: 'divider',
-                          color: 'text.secondary',
-                          transition: 'all 0.2s ease',
-                          '&:hover': {
-                            transform: 'translateY(-2px)',
-                            color: 'primary.main',
-                            borderColor: 'primary.main',
-                            bgcolor: '#eef2ff'
-                          }
-                        }}
-                      >
-                        <Icon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                ))}
-              </Box>
-            </Grid>
-          </Grid>
+              <Stack direction="row" spacing={1} sx={{ mt: 3 }}>
+                {socials.map((s) => {
+                  const Icon = SOCIAL_ICONS[s.id];
+                  return (
+                    <Link
+                      key={s.id}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${s.label}: ${s.handle}`}
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.75,
+                        px: 1.5,
+                        py: 0.75,
+                        borderRadius: '9px',
+                        bgcolor: 'background.paper',
+                        border: '1px solid',
+                        borderColor: (t) => t.palette.surface.accentBorder,
+                        color: 'text.secondary',
+                        fontSize: '0.82rem',
+                        transition: 'color .2s ease, transform .2s ease',
+                        '&:hover': { color: 'primary.main', transform: 'translateY(-2px)' },
+                      }}
+                    >
+                      <Icon sx={{ fontSize: 16 }} />
+                      {s.label}
+                    </Link>
+                  );
+                })}
+              </Stack>
+            </Box>
+          </Box>
         </Paper>
-      </motion.div>
-    </Box>
+      </Reveal>
+    </Section>
   );
 }

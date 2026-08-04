@@ -1,46 +1,78 @@
 // src/components/ProfileSection.jsx
-import { Box, Paper, Typography } from '@mui/material';
-import { motion } from 'framer-motion';
-import { useTheme } from '@mui/material/styles';
+import { Box, Typography, Paper, Stack } from '@mui/material';
+import Section, { cardSx, cardHoverSx } from './Section';
+import Reveal from './Reveal';
+import { profile, focusAreas, languages } from '../data/cv';
 
 export default function ProfileSection() {
-
-  const theme = useTheme();
-
   return (
-    <Box component="section">
-      {/* Animación de entrada */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+    <Section
+      id="perfil"
+      eyebrow="01 / Perfil"
+      title="Ingeniería de software con foco en el resultado"
+    >
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1.1fr) minmax(0, 1fr)' },
+          gap: { xs: 4, md: 7 },
+          alignItems: 'start',
+        }}
       >
-        <Typography
-          variant="h2"
-          color="primary"
-          gutterBottom
-          sx={{ mb: 4 }}
-        >
-          Perfil Profesional
-        </Typography>
-        <Paper
-          sx={{
-            p: { xs: 3, sm: 4 },
-          }}
-        >
-
-          {/* Texto descriptivo */}
+        {/* Resumen */}
+        <Reveal>
           <Typography
-            variant="body1"
             sx={{
-              textAlign: 'justify',
+              fontSize: { xs: '1.02rem', md: '1.12rem' },
+              lineHeight: 1.75,
+              color: 'text.primary',
+              // Primera línea destacada: guía la mirada en los primeros segundos.
+              '& strong': { fontWeight: 600 },
             }}
           >
-            <strong>Desarrollador de Software</strong> con más de 5 años de experiencia en el ciclo completo de vida de
-            aplicaciones web y sistemas empresariales. Experto en el ecosistema <strong>PHP / Laravel</strong> y en la creación de interfaces interactivas con <strong>JavaScript / React</strong>. Me apasiona resolver problemas técnicos complejos creando arquitecturas limpias y escalables, manteniendo siempre el foco en la experiencia del usuario y en aportar valor real al negocio.
+            {profile.summary}
           </Typography>
-        </Paper>
-      </motion.div>
-    </Box>
+
+          <Stack direction="row" spacing={1} sx={{ mt: 3 }} flexWrap="wrap" useFlexGap>
+            <Typography variant="overline" sx={{ color: 'text.disabled' }}>
+              Idiomas
+            </Typography>
+            {languages.map((l) => (
+              <Typography key={l.name} variant="body2" sx={{ color: 'text.secondary' }}>
+                {l.name} — {l.level}
+              </Typography>
+            ))}
+          </Stack>
+        </Reveal>
+
+        {/* Ejes de trabajo */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
+            gap: 2,
+          }}
+        >
+          {focusAreas.map((area, i) => (
+            <Reveal key={area.id} delay={i * 0.06} style={{ height: '100%' }}>
+              <Paper
+                sx={[cardSx, cardHoverSx, { p: 2.5, height: '100%' }]}
+                aria-label={area.title}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ fontSize: '0.98rem', mb: 0.75, color: 'text.primary' }}
+                >
+                  {area.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {area.description}
+                </Typography>
+              </Paper>
+            </Reveal>
+          ))}
+        </Box>
+      </Box>
+    </Section>
   );
 }

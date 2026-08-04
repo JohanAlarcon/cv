@@ -1,16 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';        
+import React, { Suspense, lazy } from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App';
-import theme from './theme';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import ColorModeProvider from './ColorMode';
+import reportWebVitals from './reportWebVitals';
 
-const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);   
+// La hoja imprimible no comparte nada con el portafolio: se carga aparte para
+// no engordar el bundle inicial de la web.
+const CvDocument = lazy(() => import('./cv/CvDocument'));
+
+// Enrutado mínimo sin dependencias: `?cv=1` sirve el documento imprimible.
+// Un query param (y no una ruta) evita el 404 de GitHub Pages en SPAs.
+const params = new URLSearchParams(window.location.search);
+const isPrintView = params.get('cv') === '1';
+const autoPrint = params.get('print') === '1';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>,
+    <ColorModeProvider forcedMode={isPrintView ? 'light' : undefined}>
+      {isPrintView ? (
+        <Suspense fallback={null}>
+          <CvDocument autoPrint={autoPrint} />
+        </Suspense>
+      ) : (
+        <App />
+      )}
+    </ColorModeProvider>
   </React.StrictMode>
 );
+
+reportWebVitals();

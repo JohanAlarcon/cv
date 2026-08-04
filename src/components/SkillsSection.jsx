@@ -1,118 +1,165 @@
 // src/components/SkillsSection.jsx
-import { Box, Typography, Chip, Paper, Avatar } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box, Typography, Paper, Stack, Tooltip } from '@mui/material';
+import {
+  SiLaravel,
+  SiPhp,
+  SiNodedotjs,
+  SiNestjs,
+  SiFilament,
+  SiLivewire,
+  SiReact,
+  SiJavascript,
+  SiVuedotjs,
+  SiNextdotjs,
+  SiHtml5,
+  SiCss3,
+  SiBootstrap,
+  SiMui,
+  SiMysql,
+  SiGit,
+  SiDocker,
+  SiPostman,
+} from 'react-icons/si';
 
-// Importar iconos de react-icons
-import { SiLaravel, SiPhp, SiReact, SiJavascript, SiHtml5, SiCss3, SiMysql, SiGit, SiDocker, SiBootstrap, SiPhpmyadmin } from 'react-icons/si';
+import Section, { cardSx, cardHoverSx } from './Section';
+import Reveal from './Reveal';
+import { technicalSkills, softSkills } from '../data/cv';
 
-export default function SkillsSection() {
-  const theme = useTheme();
+const ICONS = {
+  laravel: SiLaravel,
+  php: SiPhp,
+  node: SiNodedotjs,
+  nest: SiNestjs,
+  filament: SiFilament,
+  livewire: SiLivewire,
+  react: SiReact,
+  javascript: SiJavascript,
+  vue: SiVuedotjs,
+  next: SiNextdotjs,
+  html: SiHtml5,
+  css: SiCss3,
+  bootstrap: SiBootstrap,
+  mui: SiMui,
+  mysql: SiMysql,
+  git: SiGit,
+  docker: SiDocker,
+  postman: SiPostman,
+};
 
-  const skills = [
-    'Laravel',
-    'PHP',
-    'React',
-    'JavaScript',
-    'HTML5',
-    'CSS3',
-    'MySQL',
-    'Git',
-    'Docker',
-    'Bootstrap',
-    'Filament',
-  ];
-
-  // Mapa: nombre de skill -> icono
-  const skillIcons = {
-    Laravel: SiLaravel,
-    PHP: SiPhp,
-    React: SiReact,
-    JavaScript: SiJavascript,
-    HTML5: SiHtml5,
-    CSS3: SiCss3,
-    MySQL: SiMysql,
-    Git: SiGit,
-    Docker: SiDocker,
-    Bootstrap: SiBootstrap,
-    // Filament no tiene icono oficial en react-icons; usamos un icono genérico
-    Filament: SiPhpmyadmin,
-  };
+function SkillPill({ name, icon }) {
+  const Icon = icon ? ICONS[icon] : null;
 
   return (
-    <Box component="section">
-      <Typography
-        variant="h2"
-        color="primary"
-        gutterBottom
-        sx={{
-          mb: 4,
-          display: 'inline-block',
-        }}
-      >
-        Competencias técnicas
+    <Stack
+      direction="row"
+      spacing={0.9}
+      alignItems="center"
+      sx={{
+        px: 1.25,
+        py: 0.7,
+        borderRadius: '9px',
+        border: '1px solid',
+        borderColor: 'divider',
+        bgcolor: (t) => t.palette.surface.subtle,
+        color: 'text.secondary',
+        transition: 'color .2s ease, border-color .2s ease, background-color .2s ease, transform .2s ease',
+        '&:hover': {
+          color: 'primary.main',
+          borderColor: (t) => t.palette.surface.accentBorder,
+          bgcolor: (t) => t.palette.surface.accentSoft,
+          transform: 'translateY(-2px)',
+        },
+      }}
+    >
+      {Icon && <Icon size={14} aria-hidden />}
+      <Typography sx={{ fontSize: '0.82rem', fontWeight: 500, lineHeight: 1.4, whiteSpace: 'nowrap' }}>
+        {name}
       </Typography>
+    </Stack>
+  );
+}
 
-      <Paper
+export default function SkillsSection() {
+  return (
+    <Section
+      id="skills"
+      eyebrow="04 / Competencias"
+      title="Skills técnicas y blandas"
+      description="Agrupadas por dominio para que se lean de un vistazo, no como una lista plana de etiquetas."
+    >
+      {/* ── Técnicas ─────────────────────────────────────────────── */}
+      <Box
         sx={{
-          p: { xs: 5, sm: 12, md: 12, lg: 8 },
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+          gap: 2,
         }}
       >
-        {/* ===== Grid responsive de Chips ===== */}
-        <Box
-          component="ul"
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(2, 1fr)',   
-              sm: 'repeat(3, 1fr)',   
-              md: 'repeat(4, 1fr)',
-              lg: 'repeat(9, 1fr)',
-            },
-            gap: 2,
-            listStyle: 'none',
-            p: 0,
-            m: 0,
-          }}
-        >
-          {skills.map((skill) => {
-            const IconComponent = skillIcons[skill];
+        {technicalSkills.map((group, i) => (
+          <Reveal key={group.id} delay={i * 0.06} style={{ height: '100%' }}>
+            <Paper sx={[cardSx, cardHoverSx, { height: '100%' }]}>
+              <Typography variant="overline" sx={{ color: 'text.disabled', display: 'block', mb: 2 }}>
+                {group.label}
+              </Typography>
+              <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                {group.items.map((item) => (
+                  <SkillPill key={item.name} name={item.name} icon={item.icon} />
+                ))}
+              </Stack>
+            </Paper>
+          </Reveal>
+        ))}
+      </Box>
 
-            return (
-              <Box component="li" key={skill} sx={{ textAlign: 'center' }}>
-                <Chip
-                  label={skill}
-                  variant="outlined"
-                  avatar={
-                    IconComponent ? (
-                      <Avatar sx={{ bgcolor: 'transparent', color: 'inherit' }}>
-                        <IconComponent size={18} />
-                      </Avatar>
-                    ) : undefined
-                  }
+      {/* ── Blandas ──────────────────────────────────────────────── */}
+      <Reveal delay={0.1}>
+        <Box sx={{ mt: { xs: 4, md: 6 } }}>
+          <Typography variant="overline" sx={{ color: 'text.disabled', display: 'block', mb: 2 }}>
+            Habilidades blandas
+          </Typography>
+
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                lg: 'repeat(4, 1fr)',
+              },
+              gap: 1.5,
+            }}
+          >
+            {softSkills.map((s) => (
+              <Tooltip key={s.name} title={s.detail} placement="top" arrow>
+                <Box
+                  tabIndex={0}
                   sx={{
-                    width: '100%',
-                    py: 2.5,
+                    px: 2,
+                    py: 1.5,
+                    borderRadius: 2,
                     border: '1px solid',
                     borderColor: 'divider',
-                    justifyContent: 'flex-start',
-                    pl: 1,
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      backgroundColor: '#eef2ff',
-                      color: 'primary.main',
+                    bgcolor: 'background.paper',
+                    cursor: 'default',
+                    transition: 'border-color .2s ease, transform .2s ease',
+                    '&:hover, &:focus-visible': {
                       borderColor: 'primary.main',
                       transform: 'translateY(-2px)',
                     },
-                    '& .MuiChip-avatar': {
-                      color: 'inherit'
-                    }
                   }}
-                />
-              </Box>
-            );
-          })}
+                >
+                  <Typography sx={{ fontSize: '0.88rem', fontWeight: 500, color: 'text.primary' }}>
+                    {s.name}
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.25 }}>
+                    {s.detail}
+                  </Typography>
+                </Box>
+              </Tooltip>
+            ))}
+          </Box>
         </Box>
-      </Paper>
-    </Box>
+      </Reveal>
+    </Section>
   );
 }

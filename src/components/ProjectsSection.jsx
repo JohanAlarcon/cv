@@ -1,142 +1,146 @@
-import { Box, Typography, Grid, Paper, Chip, Button } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { motion } from 'framer-motion';
-import LaunchIcon from '@mui/icons-material/Launch';
+// src/components/ProjectsSection.jsx
+import { Box, Typography, Paper, Chip, Stack, Link } from '@mui/material';
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
+import Section, { cardSx } from './Section';
+import Reveal from './Reveal';
+import { projects } from '../data/cv';
 
 export default function ProjectsSection() {
-  const theme = useTheme();
-
-  const projects = [
-    {
-      title: 'Plataforma Descubre Ibagué',
-      description: 'Plataforma oficial para la promoción turística de Ibagué. Desarrollada para la Alcaldía, permite a los usuarios explorar lugares, eventos y rutas gastronómicas de la ciudad, con un panel administrativo completo.',
-      image: `${process.env.PUBLIC_URL}/descubre-ibague.png`,
-      tags: ['Laravel', 'MySQL', 'PHP', 'Vue'],
-      demoLink: 'https://turismo.ibague.gov.co/',
-    },
-    {
-      title: 'Sistema de Gestión para Barberías',
-      description: 'Aplicación web diseñada para la gestión integral de barberías. Incluye agendamiento de citas, calendario interactivo, y un panel de control para el seguimiento preciso de los ingresos y comisiones del salón.',
-      image: `${process.env.PUBLIC_URL}/barbershop_dashboard.jpg`,
-      tags: ['React', 'Nest.js', 'MUI', 'MySQL'],
-      demoLink: 'https://stylecloud.online/',
-    },
-    {
-      title: 'Curaduría Cloud | Software Especializado',
-      description: 'Solución definitiva en la nube para la gestión integral de Curadurías Urbanas en Colombia. Facilita la radicación digital, control de expedientes y el cumplimiento de la Ley 388 y el Decreto 1077.',
-      image: 'https://JohanAlarcon.github.io/landing-page-curaduria/images/hero-bg_2.png',
-      tags: ['Laravel', 'Livewire', 'Gestión Documental'],
-      demoLink: 'https://johanalarcon.github.io/landing-page-curaduria/',
-    }
-  ];
-
   return (
-    <Box component="section" sx={{ mb: 4 }}>
-      <Typography
-        variant="h2"
-        color="primary"
-        gutterBottom
+    <Section
+      id="proyectos"
+      eyebrow="05 / Portafolio"
+      title="Proyectos destacados"
+      description="Sistemas en producción, con usuarios reales, en entornos públicos y privados."
+    >
+      <Box
         sx={{
-          position: 'relative',
-          mb: 4,
-          display: 'inline-block',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: -6,
-            left: 0,
-            width: '60%',
-            height: 4,
-            bgcolor: 'accent.main',
-            borderRadius: 2,
-          },
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+          gap: { xs: 2.5, md: 3 },
         }}
       >
-        Proyectos Destacados
-      </Typography>
-
-      <Grid container spacing={3}>
         {projects.map((project, idx) => (
-          <Grid item xs={12} md={6} lg={4} key={idx}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              style={{ height: '100%' }}
-            >
-              <Paper
-                sx={{
+          <Reveal key={project.id} delay={idx * 0.08} style={{ height: '100%' }}>
+            <Paper
+              component="article"
+              sx={[
+                cardSx,
+                {
+                  p: 0,
+                  height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  height: '100%',
                   overflow: 'hidden',
-                  p: 0,
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-                  }
-                }}
-              >
-                {/* Project Image */}
+                    borderColor: (t) => t.palette.surface.borderStrong,
+                    transform: 'translateY(-4px)',
+                    boxShadow: (t) => t.shadows[3],
+                  },
+                  '&:hover .project-media': { transform: 'scale(1.04)' },
+                  '&:hover .project-arrow': { transform: 'translate(2px, -2px)' },
+                },
+              ]}
+            >
+              {/* Media */}
+              <Box sx={{ position: 'relative', overflow: 'hidden', bgcolor: (t) => t.palette.surface.subtle }}>
                 <Box
+                  className="project-media"
+                  component="img"
+                  src={project.image}
+                  alt={`Captura de ${project.title}`}
+                  loading="lazy"
+                  decoding="async"
                   sx={{
-                    height: 160,
+                    display: 'block',
                     width: '100%',
-                    backgroundImage: `url(${project.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    borderBottom: `1px solid ${theme.palette.divider}`
+                    aspectRatio: '16 / 10',
+                    objectFit: 'cover',
+                    objectPosition: 'top center',
+                    transition: 'transform .5s cubic-bezier(.22,1,.36,1)',
                   }}
                 />
-                
-                {/* Project Content */}
-                <Box sx={{ p: 2.5, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  <Typography variant="h3" sx={{ mb: 1, fontSize: '1.25rem' }}>
-                    {project.title}
-                  </Typography>
-                  
-                  <Typography variant="body2" sx={{ mb: 3, flexGrow: 1 }}>
-                    {project.description}
-                  </Typography>
-                  
-                  {/* Tags */}
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-                    {project.tags.map(tag => (
-                      <Chip 
-                        key={tag} 
-                        label={tag} 
-                        size="small" 
-                        sx={{ 
-                          bgcolor: 'primary.50',
-                          color: 'primary.main',
-                          fontWeight: 500
-                        }} 
-                      />
-                    ))}
-                  </Box>
-                  
-                  {/* Action Buttons */}
-                  <Box sx={{ display: 'flex', gap: 2, mt: 'auto' }}>
-                    {project.demoLink && (
-                      <Button 
-                        size="small" 
-                        variant="contained" 
-                        endIcon={<LaunchIcon fontSize="small"/>}
-                        href={project.demoLink}
-                        target="_blank"
-                      >
-                        App
-                      </Button>
-                    )}
-                  </Box>
-                </Box>
-              </Paper>
-            </motion.div>
-          </Grid>
+                <Chip
+                  label={project.sector}
+                  size="small"
+                  sx={{
+                    position: 'absolute',
+                    top: 12,
+                    left: 12,
+                    height: 24,
+                    fontSize: '0.7rem',
+                    fontWeight: 500,
+                    color: 'text.primary',
+                    bgcolor: (t) =>
+                      t.palette.mode === 'dark' ? 'rgba(20,18,16,0.85)' : 'rgba(255,255,255,0.9)',
+                    backdropFilter: 'blur(6px)',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                />
+              </Box>
+
+              {/* Contenido */}
+              <Box sx={{ p: 2.75, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                <Typography variant="h3" component="h3" sx={{ fontSize: '1.12rem', color: 'text.primary' }}>
+                  {project.title}
+                </Typography>
+                <Typography variant="caption" sx={{ color: 'text.disabled', display: 'block', mt: 0.4 }}>
+                  {project.subtitle}
+                </Typography>
+
+                <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1.75, flexGrow: 1 }}>
+                  {project.description}
+                </Typography>
+
+                <Stack direction="row" spacing={0.75} flexWrap="wrap" useFlexGap sx={{ mt: 2.5 }}>
+                  {project.tags.map((tag) => (
+                    <Chip
+                      key={tag}
+                      label={tag}
+                      size="small"
+                      variant="outlined"
+                      sx={{
+                        height: 24,
+                        fontFamily: (t) => t.typography.overline.fontFamily,
+                        fontSize: '0.68rem',
+                        letterSpacing: '0.03em',
+                        color: 'text.secondary',
+                        bgcolor: (t) => t.palette.surface.subtle,
+                      }}
+                    />
+                  ))}
+                </Stack>
+
+                {project.link && (
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      mt: 2.5,
+                      pt: 2,
+                      borderTop: '1px solid',
+                      borderColor: 'divider',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 0.75,
+                      fontSize: '0.85rem',
+                      color: 'primary.main',
+                    }}
+                  >
+                    {project.linkLabel}
+                    <ArrowOutwardRoundedIcon
+                      className="project-arrow"
+                      sx={{ fontSize: 15, transition: 'transform .25s ease' }}
+                    />
+                  </Link>
+                )}
+              </Box>
+            </Paper>
+          </Reveal>
         ))}
-      </Grid>
-    </Box>
+      </Box>
+    </Section>
   );
 }

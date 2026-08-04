@@ -1,170 +1,312 @@
-import { Box, Avatar, Typography, Container, Button, useTheme, Stack, Chip } from '@mui/material';
-import { motion } from 'framer-motion';
-import PrintIcon from '@mui/icons-material/Print';
-import CodeIcon from '@mui/icons-material/Code';
+// src/components/Hero.jsx
+import { Box, Typography, Button, Stack, Chip, Link, Divider } from '@mui/material';
+import { motion, useReducedMotion } from 'framer-motion';
+import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import PlaceRoundedIcon from '@mui/icons-material/PlaceRounded';
+import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
-export default function Hero() {
-  const theme = useTheme();
-  const pdfUrl = `${process.env.PUBLIC_URL}/Hoja_de_Vida_Johan_Dario_Alarcon.pdf`;
+import { profile, contact, socials, metrics } from '../data/cv';
 
-   const handleDownload = async () => {
-    try {
-      const resp = await fetch(pdfUrl);
-      const blob = await resp.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Hoja_de_Vida_Johan_Dario_Alarcon.pdf';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Error descargando CV:', err);
-    }
-  };
+const EASE = [0.22, 1, 0.36, 1];
+
+const SOCIAL_ICONS = { linkedin: LinkedInIcon, github: GitHubIcon };
+
+export default function Hero({ onDownload, onPrintable }) {
+  const reduce = useReducedMotion();
+
+  const enter = (delay) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 18 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6, delay, ease: EASE },
+        };
+
   return (
     <Box
-      component={motion.section}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      component="header"
+      id="inicio"
       sx={{
         position: 'relative',
-        borderRadius: '24px',
-        overflow: 'hidden',
-        boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-        background: `radial-gradient(circle at top right, ${theme.palette.primary.light}20 0%, transparent 40%),
-                     radial-gradient(circle at bottom left, ${theme.palette.accent.main}20 0%, transparent 40%),
-                     linear-gradient(to bottom right, ${theme.palette.primary.dark}, #111827)`,
-        color: '#fff',
+        pt: { xs: 12, md: 17 },
+        pb: { xs: 3, md: 4 },
       }}
     >
-      {/* Decorative backdrop elements */}
-      <Box sx={{ position: 'absolute', top: '-10%', right: '-5%', width: '300px', height: '300px', borderRadius: '50%', background: `${theme.palette.primary.main}40`, filter: 'blur(80px)', zIndex: 0 }} />
-      <Box sx={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '250px', height: '250px', borderRadius: '50%', background: `${theme.palette.accent.main}30`, filter: 'blur(60px)', zIndex: 0 }} />
-
-      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box
-          sx={{
-            textAlign: 'center',
-            py: { xs: 5, md: 7 },
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
-          >
-            <Avatar
-              src={`${process.env.PUBLIC_URL}/perfil.jpg`}
-              alt="Johan Alarcón"
-              sx={{
-                width: { xs: 96, md: 128 },
-                height: { xs: 96, md: 128 },
-                mx: 'auto',
-                mb: 2.5,
-                border: `4px solid rgba(255, 255, 255, 0.2)`,
-                backgroundClip: 'padding-box',
-                boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.5)',
-              }}
-            />
-          </motion.div>
-
-          <Chip 
-            icon={<CodeIcon fontSize="small" />} 
-            label="Open to work" 
-            color="success" 
-            size="small" 
-            sx={{ mb: 2, fontWeight: 600, bgcolor: 'rgba(16, 185, 129, 0.2)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.5)' }} 
-          />
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1.35fr) minmax(0, 1fr)' },
+          gap: { xs: 5, md: 8 },
+          alignItems: 'center',
+        }}
+      >
+        {/* ── Columna de texto ─────────────────────────────────────── */}
+        <Box>
+          {profile.available && (
+            <Box component={motion.div} {...enter(0)}>
+              <Chip
+                size="small"
+                label={profile.availabilityLabel}
+                icon={
+                  <Box
+                    component="span"
+                    sx={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: '50%',
+                      bgcolor: 'success.main',
+                      ml: '10px !important',
+                      boxShadow: (t) => `0 0 0 3px ${t.palette.success.main}25`,
+                    }}
+                  />
+                }
+                sx={{
+                  mb: 3,
+                  px: 0.5,
+                  height: 30,
+                  fontWeight: 500,
+                  color: 'text.secondary',
+                  bgcolor: 'background.paper',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                }}
+              />
+            </Box>
+          )}
 
           <Typography
-            variant="h1"
             component={motion.h1}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            sx={{
-              color: '#fff',
-              mb: 1.5,
-              px: 2,
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-            }}
+            variant="h1"
+            {...enter(0.06)}
+            sx={{ color: 'text.primary', mb: 1.5 }}
           >
-            Johan Darío Alarcón
+            {profile.shortName}
           </Typography>
+
+          <Box component={motion.div} {...enter(0.12)}>
+            <Stack
+              direction="row"
+              spacing={1.5}
+              alignItems="center"
+              flexWrap="wrap"
+              useFlexGap
+              sx={{ mb: 3 }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: (t) => t.typography.h1.fontFamily,
+                  fontSize: { xs: '1.05rem', md: '1.25rem' },
+                  fontWeight: 500,
+                  color: 'primary.main',
+                }}
+              >
+                {profile.role}
+              </Typography>
+              <Box sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: 'text.disabled' }} />
+              <Typography
+                sx={{
+                  fontFamily: (t) => t.typography.overline.fontFamily,
+                  fontSize: { xs: '0.8rem', md: '0.86rem' },
+                  color: 'text.secondary',
+                  letterSpacing: '0.01em',
+                }}
+              >
+                {profile.headline}
+              </Typography>
+            </Stack>
+          </Box>
 
           <Typography
             component={motion.p}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            sx={{
-              mb: 3.5,
-              fontWeight: 400,
-              maxWidth: '540px',
-              color: 'rgba(255,255,255,0.7)',
-              fontSize: { xs: '0.9rem', md: '1rem' },
-              lineHeight: 1.6,
-            }}
+            variant="body1"
+            {...enter(0.18)}
+            sx={{ color: 'text.secondary', maxWidth: 560, mb: 4 }}
           >
-            Software Engineer especializado en ecosistemas web modernos (PHP/Laravel). Construyendo soluciones de alto rendimiento.
+            {profile.tagline}
           </Typography>
 
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }} 
-            spacing={2}
+          <Stack
             component={motion.div}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            {...enter(0.24)}
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={1.5}
+            sx={{ mb: 4 }}
           >
             <Button
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               variant="contained"
               size="large"
-              sx={{
-                bgcolor: 'accent.main',
-                color: '#fff',
-                px: 4,
-                py: 1.5,
-                fontSize: '1rem',
-                '&:hover': { bgcolor: 'accent.dark' },
-              }}
-              startIcon={<PrintIcon />}
-              onClick={handleDownload}
+              onClick={onDownload}
+              startIcon={<FileDownloadRoundedIcon />}
+              sx={{ px: 3 }}
             >
               Descargar CV
             </Button>
-            
             <Button
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               variant="outlined"
               size="large"
-              onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-              sx={{
-                borderColor: 'rgba(255,255,255,0.5)',
-                color: '#fff',
-                px: 4,
-                py: 1.5,
-                fontSize: '1rem',
-                borderWidth: 2,
-                '&:hover': { borderColor: '#fff', borderWidth: 2, bgcolor: 'rgba(255,255,255,0.05)' },
-              }}
+              onClick={onPrintable}
+              endIcon={<ArrowForwardRoundedIcon />}
+              sx={{ px: 3 }}
             >
-              Contactar
+              Ver versión imprimible
             </Button>
           </Stack>
+
+          {/* Datos de contacto directos: el reclutador no debería tener que buscarlos. */}
+          <Stack
+            component={motion.div}
+            {...enter(0.3)}
+            direction="row"
+            spacing={{ xs: 1.5, sm: 2.5 }}
+            flexWrap="wrap"
+            useFlexGap
+            alignItems="center"
+            divider={
+              <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+            }
+          >
+            <MetaItem icon={PlaceRoundedIcon} text={contact.location} />
+            <MetaItem icon={MailRoundedIcon} text={contact.email} href={contact.emailHref} />
+            <MetaItem icon={CallRoundedIcon} text={contact.phone} href={contact.phoneHref} />
+            <Stack direction="row" spacing={0.5}>
+              {socials.map((s) => {
+                const Icon = SOCIAL_ICONS[s.id];
+                return (
+                  <Link
+                    key={s.id}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    sx={{
+                      display: 'grid',
+                      placeItems: 'center',
+                      width: 30,
+                      height: 30,
+                      borderRadius: '9px',
+                      color: 'text.secondary',
+                      transition: 'color .2s ease, background-color .2s ease',
+                      '&:hover': { color: 'primary.main', bgcolor: 'action.hover' },
+                    }}
+                  >
+                    <Icon sx={{ fontSize: 18 }} />
+                  </Link>
+                );
+              })}
+            </Stack>
+          </Stack>
         </Box>
-      </Container>
+
+        {/* ── Retrato ──────────────────────────────────────────────── */}
+        <Box
+          component={motion.div}
+          {...(reduce
+            ? {}
+            : {
+                initial: { opacity: 0, scale: 0.96 },
+                animate: { opacity: 1, scale: 1 },
+                transition: { duration: 0.7, delay: 0.15, ease: EASE },
+              })}
+          sx={{
+            position: 'relative',
+            justifySelf: { xs: 'center', md: 'end' },
+            width: { xs: 200, sm: 240, md: '100%' },
+            maxWidth: 320,
+          }}
+        >
+          {/* Marco desplazado: profundidad sin sombras ni gradientes. */}
+          <Box
+            aria-hidden
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              transform: 'translate(14px, 14px)',
+              border: '1px solid',
+              borderColor: 'primary.main',
+              borderRadius: 4,
+              opacity: 0.4,
+            }}
+          />
+          <Box
+            component="img"
+            src={profile.photo}
+            alt={`Retrato de ${profile.name}`}
+            width={320}
+            height={384}
+            sx={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '5 / 6',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              borderRadius: 4,
+              display: 'block',
+              border: '1px solid',
+              borderColor: 'divider',
+              filter: (t) => (t.palette.mode === 'dark' ? 'brightness(0.92)' : 'none'),
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* ── Métricas ─────────────────────────────────────────────── */}
+      <Box
+        component={motion.div}
+        {...enter(0.36)}
+        sx={{
+          mt: { xs: 6, md: 9 },
+          pt: { xs: 3, md: 4 },
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          display: 'grid',
+          gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+          gap: { xs: 3, md: 2 },
+        }}
+      >
+        {metrics.map((m) => (
+          <Box key={m.label}>
+            <Typography
+              sx={{
+                fontFamily: (t) => t.typography.h1.fontFamily,
+                fontSize: { xs: '1.75rem', md: '2.1rem' },
+                fontWeight: 600,
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
+                color: 'text.primary',
+              }}
+            >
+              {m.value}
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.75 }}>
+              {m.label}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
     </Box>
+  );
+}
+
+function MetaItem({ icon: Icon, text, href }) {
+  const content = (
+    <Stack direction="row" spacing={0.75} alignItems="center">
+      <Icon sx={{ fontSize: 15, color: 'primary.main' }} />
+      <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
+        {text}
+      </Typography>
+    </Stack>
+  );
+
+  if (!href) return content;
+
+  return (
+    <Link href={href} sx={{ '&:hover .MuiTypography-root': { color: 'primary.main' } }}>
+      {content}
+    </Link>
   );
 }

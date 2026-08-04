@@ -1,71 +1,55 @@
-import { Box, Typography, Grid, Paper } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import { motion } from 'framer-motion';
+// src/components/AchievementsSection.jsx
+import { Box, Typography, Paper, Stack } from '@mui/material';
+import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
+import Section, { cardSx, cardHoverSx } from './Section';
+import Reveal from './Reveal';
+import { achievements } from '../data/cv';
 
 export default function AchievementsSection() {
-    const theme = useTheme();
+  return (
+    <Section id="logros" eyebrow="06 / Impacto" title="Logros">
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+          gap: 2,
+        }}
+      >
+        {achievements.map((item, idx) => (
+          <Reveal key={item.title} delay={idx * 0.08} style={{ height: '100%' }}>
+            <Paper sx={[cardSx, cardHoverSx, { height: '100%' }]}>
+              <Stack direction="row" spacing={2} alignItems="flex-start">
+                <Box
+                  aria-hidden
+                  sx={{
+                    flexShrink: 0,
+                    width: 38,
+                    height: 38,
+                    borderRadius: 2,
+                    display: 'grid',
+                    placeItems: 'center',
+                    color: 'primary.main',
+                    bgcolor: (t) => t.palette.surface.accentSoft,
+                    border: '1px solid',
+                    borderColor: (t) => t.palette.surface.accentBorder,
+                  }}
+                >
+                  <EmojiEventsRoundedIcon sx={{ fontSize: 19 }} />
+                </Box>
 
-    const achievements = [
-        "Implementación exitosa de una plataforma 'Descubre Ibague' para la Alcaldía de Ibagué, mostrando el potencial turístico de la ciudad.",
-        'Reconocido como "Empleado del Mes" en SIANDSI por la entrega de proyectos antes del plazo establecido.'
-    ];
-
-    return (
-        <Box component="section" sx={{ mb: 4 }}>
-            <Typography
-                variant="h2"
-                color="primary"
-                gutterBottom
-                sx={{
-                    mb: 4,
-                    display: 'inline-block',
-                }}
-            >
-                Logros
-            </Typography>
-
-            {/* Grid responsive de tarjetas */}
-            <Grid container spacing={4}>
-                {achievements.map((text, idx) => (
-                    <Grid item xs={12} key={idx}>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        >
-                            <Paper
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'flex-start',
-                                    p: { xs: 3, md: 4 },
-                                    height: '100%',
-                                }}
-                            >
-                                <EmojiEventsIcon
-                                    sx={{
-                                        color: 'accent.main',
-                                        fontSize: 32,
-                                        mr: 2,
-                                        mt: 0.25,
-                                        flexShrink: 0
-                                    }}
-                                />
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        fontWeight: 500,
-                                        lineHeight: 1.6,
-                                    }}
-                                >
-                                    {text}
-                                </Typography>
-                            </Paper>
-                        </motion.div>
-                    </Grid>
-                ))}
-            </Grid>
-        </Box>
-    );
+                <Box>
+                  <Typography variant="h4" component="h3" sx={{ fontSize: '1rem', color: 'text.primary' }}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.75 }}>
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Stack>
+            </Paper>
+          </Reveal>
+        ))}
+      </Box>
+    </Section>
+  );
 }

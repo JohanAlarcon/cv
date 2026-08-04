@@ -2,42 +2,99 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Johan Alarcón — Ingeniero de Sistemas | Desarrollador de Software</title>
+
+    <!-- Tipografías: Space Grotesk (display), Inter (texto), JetBrains Mono (metadatos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
     />
 
-    <!-- Título de la pestaña -->
-    <title>Johan Alarcón – CV / Portfolio</title>
-
-    <!-- Google Fonts: Inter & Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Favicon (coloca favicon.ico o .png en public/) -->
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest" />
+    <meta name="theme-color" content="#FAFAF9" />
 
-    <!-- Metadata SEO / Social -->
-    <meta name="description" content="CV de Johan Darío Alarcón, Ingeniero de Sistemas." />
-    <meta name="author" content="Johan Darío Alarcón" />
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="Johan Darío Alarcón — Ingeniero de Sistemas y Desarrollador de Software con 6 años de experiencia en Laravel, PHP, React y MySQL. Portafolio y hoja de vida descargable."
+    />
+    <meta name="author" content="Johan Darío Alarcón Ayala" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://johanalarcon.github.io/cv/" />
 
-    <!-- Open Graph (Facebook, LinkedIn Preview) -->
-    <meta property="og:title" content="Johan Alarcón – CV" />
-    <meta property="og:description" content="Desarrollador Web con experiencia en React, Laravel, Docker…" />
-    <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
-    <meta property="og:url" content="https://tusitio.com" />
-    <meta property="og:type" content="website" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:title" content="Johan Alarcón — Ingeniero de Sistemas | Desarrollador de Software" />
+    <meta
+      property="og:description"
+      content="6 años construyendo aplicaciones web y sistemas empresariales con Laravel, PHP, React y MySQL, en el sector público y privado."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/perfil.jpg" />
+    <meta property="og:url" content="https://johanalarcon.github.io/cv/" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Johan Alarcón – CV" />
-    <meta name="twitter:description" content="Desarrollador Web con experiencia en React, Laravel, Docker…" />
-    <meta name="twitter:image" content="%PUBLIC_URL%/og-image.png" />
+    <meta name="twitter:title" content="Johan Alarcón — Ingeniero de Sistemas" />
+    <meta
+      name="twitter:description"
+      content="Desarrollador de Software · Laravel · React. Portafolio y hoja de vida."
+    />
+    <meta name="twitter:image" content="%PUBLIC_URL%/perfil.jpg" />
 
-    <!-- Otras etiquetas que necesites… -->
+    <!-- Datos estructurados: mejora cómo aparece el perfil en buscadores -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Johan Darío Alarcón Ayala",
+        "jobTitle": "Ingeniero de Sistemas — Desarrollador de Software",
+        "url": "https://johanalarcon.github.io/cv/",
+        "email": "mailto:johandarioalarcon@gmail.com",
+        "telephone": "+57 317 682 4754",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ibagué",
+          "addressRegion": "Tolima",
+          "addressCountry": "CO"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad Cooperativa de Colombia"
+        },
+        "knowsAbout": ["Laravel", "PHP", "React", "JavaScript", "MySQL", "Docker", "Arquitectura de software"],
+        "sameAs": [
+          "https://linkedin.com/in/johan-alarcon-2864812b7/",
+          "https://github.com/JohanAlarcon"
+        ]
+      }
+    </script>
+
+    <!-- Evita el destello claro al cargar con tema oscuro guardado -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('cv-color-mode');
+          var dark =
+            stored === 'dark' ||
+            (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+          document.documentElement.style.backgroundColor = dark ? '#0C0A09' : '#FAFAF9';
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <noscript>
+      Necesitas habilitar JavaScript para ver este portafolio. También puedes descargar la hoja de
+      vida en PDF: <a href="%PUBLIC_URL%/Hoja_de_Vida_Johan_Dario_Alarcon.pdf">Hoja de vida (PDF)</a>.
+    </noscript>
     <div id="root"></div>
   </body>
 </html>
